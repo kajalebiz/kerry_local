@@ -1,0 +1,42 @@
+.logos-row {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  @media ($medium-screen-up) {
+    flex-direction: row;
+    margin: rem(62) 0;
+  }
+}
+
+.logo-outer {
+  @media ($medium-screen-up) {
+    margin-right: rem(24);
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+
+  @media ($large-screen-up) {
+    margin-right: rem(64);
+  }
+}
+
+a .logo-inner img {
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+.logo-inner img {
+  max-height: 74px;
+  mix-blend-mode: multiply;
+  max-width: 220px;
+  @media ($max-mobile-screen){
+    max-width:100%;
+}
+  @media ($max-medium-screen){
+    max-width:220px;margin-bottom:30px;
+  }
+}

@@ -1,0 +1,83 @@
+.pop-video-outer {
+  position: relative;
+  margin-bottom: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    margin-bottom: $desk-section-margin;
+  }
+}
+
+.video-modaal_thumb {
+  display: block;
+}
+
+.video-modaal {
+  &:hover {
+    .pop-video__play {
+      opacity: 1;
+    }
+  }
+}
+
+.pop-video__play {
+  border-bottom: 25px solid transparent;
+  border-left: 40px solid white;
+  border-top: 25px solid transparent;
+  left: 50%;
+  opacity: 0.7;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transition: opacity $base-duration $base-timing;
+
+  @media ($medium-screen-up) {
+    border-bottom: 40px solid transparent;
+    border-left: 64px solid white;
+    border-top: 40px solid transparent;
+  }
+
+  @media ($large-screen-up) {
+    border-bottom: 50px solid transparent;
+    border-left: 80px solid white;
+    border-top: 50px solid transparent;
+  }
+}
+.journey-online-training .training_video{
+  .pop-video__play{
+    border-bottom:15px solid transparent;border-left:30px solid white;border-top:15px solid transparent;opacity:1;left:56%;
+    @media (max-width:899px){
+      border-bottom:10px solid transparent;border-left:20px solid white;border-top:10px solid transparent;
+    }
+  }
+}
+@media ($large-screen-up){
+    .journey-online-training .training_video{
+        margin:0;
+    }
+}
+.remove_video{
+  position:relative;
+  z-index:14;
+  @media (max-width:599px){
+    margin-top:0!important;
+    padding:0!important;
+  }
+}
+.journey-online-training .video__play_wrp {
+  z-index: 11;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+/*  background: $green;*/
+    background: $blue;
+  width: 100px;
+  height: 100px;
+  border-radius: 100%;
+  @media (max-width:899px){
+    width:50px;height:50px;
+  }
+}
+@media ($large-screen-up){
+  .journey-online-training .top-angled-image img{height:950px;width:100%;object-fit:cover;}
+}

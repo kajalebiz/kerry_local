@@ -1,0 +1,15 @@
+.service-section {
+  background: $light-gray;
+
+  &.section-red {
+    background: $dark-red;
+  }
+
+  &.section-yellow {
+    background: $dark-yellow;
+  }
+
+  &.section-blue {
+    background: $dark-blue;
+  }
+}

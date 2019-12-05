@@ -1,0 +1,19 @@
+.page-color-text {
+  color: $green;
+
+  .page-is-blue & {
+    color: $blue;
+  }
+
+  .page-is-green & {
+    color: $green;
+  }
+
+  .page-is-yellow & {
+    color: $yellow;
+  }
+
+  .page-is-red & {
+    color: $red;
+  }
+}

@@ -1,0 +1,185 @@
+.mailchimp-section {
+  @media ($large-screen-up) {
+    padding: rem(122) 0 rem(72);
+  }
+}
+
+.mailchimp-section__title {
+  color: $green;
+  font-size: rem(36);
+  margin-bottom: rem(46);
+  max-width: 775px;
+  font-weight: 600;
+
+  @media ($medium-screen-up) {
+    font-size: rem(48);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(72);
+  }
+}
+
+.mailchimp-section__blurb {
+  font-size: rem(20);
+  margin-bottom: rem(46);
+  max-width: 625px;
+  // font-family: $head-ff;
+
+  @media ($medium-screen-up) {
+    font-size: rem(24);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(32);
+  }
+
+  ul,
+  ol {
+    list-style-position: inside;
+    list-style-type: none;
+    counter-reset: li-counter;
+
+    li {
+      list-style-type: none;
+      display: flex;
+
+      &:before {
+        content: counter(li-counter) '.';
+        counter-increment: li-counter;
+        display: inline-block;
+        font-family: $head-ff;
+        margin-right: rem(6);
+        font-weight: 600;
+      }
+    }
+  }
+
+  ul {
+    li:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.mailchimp-section__form-wrap {
+  max-width: 336px;
+  text-align: center;
+
+  label {
+    display: none;
+  }
+
+  input[type='email'] {
+    margin-bottom: 0;
+    text-align: left;
+    width: 100%;
+  }
+
+  input[type='submit'] {
+    margin-top: rem(24);
+  }
+}
+
+.obj-mailchimp-form-wrap.yellow-mc-cta {
+  background: $yellow;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.24);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 520px;
+  padding: rem(36);
+
+  @media ($medium-screen-up) {
+    padding: rem(64);
+  }
+
+  .mailchimp-section__title {
+    color: $dark-gray;
+    font-size: rem(40);
+    font-style: italic;
+    font-weight: 600;
+    line-height: rem(48);
+    margin-bottom: rem(32);
+  }
+
+  .mailchimp-section__blurb {
+    font-size: rem(20);
+    line-height: rem(32);
+  }
+
+  .mailchimp-section__form-wrap {
+    @media ($large-screen-up) {
+      max-width: 100%;
+      text-align: left;
+    }
+  }
+
+  .gform_fields,
+  .gfield {
+    margin-bottom: 0;
+  }
+
+  .ginput_container input[type='text'] {
+    text-align: center;
+  }
+
+  input[type='submit'].gform_button {
+    margin-top: rem(8);
+  }
+}
+
+// For the angled section on the resources page
+.mailchimp-centered-angled-section {
+  padding-top: $mobile-section-margin;
+
+  @media ($medium-screen-up) {
+    padding-top: 0;
+  }
+
+  .mailchimp-section__title {
+    color: white;
+    font-weight: 600;
+    margin-bottom: rem(24);
+    text-align: left;
+  }
+
+  .mailchimp-section__form-wrap {
+    max-width: 1000px;
+    text-align: left;
+  }
+
+  input[type='email'] {
+    text-align: left;
+  }
+
+  .obj-mailchimp-form-wrap {
+    margin: 0 auto;
+    max-width: 500px;
+    width: 90%;
+  }
+
+  .gform_fields,
+  .gfield {
+    margin-bottom: 0;
+  }
+
+  input[type='submit'].gform_button {
+    margin-top: rem(8);
+  }
+}
+
+.inner-mailchimp-centered-angled-section {
+  background-color: $yellow;
+  padding: $mobile-section-margin 0;
+
+  @media ($medium-screen-up) {
+    clip-path: polygon(0 96px, 100% 0%, 100% calc(100% - 96px), 0% 100%);
+    margin-top: 0;
+    padding: $mobile-section-margin * 2 0;
+  }
+
+  @media ($large-screen-up) {
+    clip-path: polygon(0 230px, 100% 0%, 100% calc(100% - 230px), 0% 100%);
+    padding: rem(260) 0;
+  }
+}

@@ -1,0 +1,95 @@
+.testimonial {
+  margin: rem(48) 0 rem(48);
+
+  @media ($medium-screen-up) {
+    margin: rem(64) 0 rem(64);
+  }
+
+  &.padded {
+    margin: 0;
+  }
+
+  &.bot-pad {
+    padding-bottom: rem(48);
+
+    @media ($medium-screen-up) {
+      padding-bottom: rem(64);
+    }
+  }
+}
+
+.testimonial__quote {
+  font-size: rem(32);
+  font-style: italic;
+  font-weight: 600;
+  font-family: $head-ff;
+  line-height: rem(42);
+  margin-bottom: rem(28);
+
+  @media ($medium-screen-up) {
+    font-size: rem(40);
+    line-height: rem(48);
+  }
+
+  .event-preview-slide & {
+    font-size: rem(24);
+    line-height: rem(32);
+
+    @media ($medium-screen-up) {
+      font-size: rem(28);
+      line-height: rem(36);
+    }
+  }
+}
+
+.testimonial__name,
+.testimonial__company,
+.testimonial__position {
+  font-size: rem(16);
+  font-weight: 600;
+  line-height: rem(24);
+  margin-bottom: 0;
+}
+
+.testimonial__name {
+  font-size: rem(20);
+  font-style: italic;
+}
+
+.testimonial__company {
+  text-transform: uppercase;
+}
+
+.testimonial__position {
+  font-style: italic;
+  text-transform: uppercase;
+}
+
+// Testimonial Slider
+.inner-testimonials-section {
+  position: relative;
+}
+
+.testimonial-slider__outer {
+  padding: rem(48) 0 0;
+
+  @media ($medium-screen-up) {
+    padding: rem(64) 0 0;
+  }
+
+  .testimonial {
+    margin: 0;
+  }
+
+  .slick-dots {
+    margin: 0;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 6px;
+    right: 0;
+
+    @media (max-width: 450px) {
+      position: relative;
+    }
+  }
+}

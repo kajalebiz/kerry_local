@@ -1,0 +1,698 @@
+// Overall wrapper styles
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    margin-top: rem(48);
+}
+
+// Styles for the navigation steps for this form
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gf_page_steps {
+        display: none;
+    }
+
+    .gf_progressbar {
+        display: none;
+    }
+
+    #gform-current-page-name {
+        margin-top: -16px;
+        margin-bottom: 28px;
+
+        h3 {
+            font-size: rem(40);
+            font-weight: 600;
+            font-style: italic;
+        }
+    }
+
+    #gform-steps-navigation {
+        margin-left: 0;
+
+        .gform-step-item {
+            display: inline-block;
+            border: 1px solid $green;
+            width: 100%;
+            max-width: 72px;
+            height: 8px;
+            margin-right: 16px;
+
+            &.bg-fill {
+                background-color: $green;
+            }
+        }
+    }
+}
+
+// inputs and labels styles
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gform_wrapper {
+        // hide the label, this class is added via gravity form
+        .hidden_label > label {
+            visibility: hidden;
+            margin-bottom: 0;
+            max-height: 10px;
+        }
+
+        .ginput_container {
+            max-width: 512px;
+        }
+
+        .preview-field input {
+            background-color: transparent;
+            border: 0;
+            box-shadow: none;
+            pointer-events: none;
+        }
+
+        .ginput_container_select {
+            select {
+                border-radius: 0px;
+                box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06);
+                box-sizing: border-box;
+                transition: border-color 300ms ease-in-out;
+                margin-bottom: 0.75rem;
+                color: #7c7c7c;
+                &:focus {
+                    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.06),
+                        0 0 5px rgba(156, 162, 181, 0.7);
+                    outline: none;
+                }
+                &.option-selected{
+                    color:black;
+                }
+            }
+
+            &::after {
+                top: 43%;
+            }
+        }
+
+        .sample-screenshot {
+            width: 100%;
+            padding-top: 1.75rem;
+            margin: 0 auto;
+            &.desktop {
+                max-width: 906px;
+                padding-bottom: 1.75rem;
+                display: none;
+                @media ($large-screen-up) {
+                    display: block;
+                }
+            }
+            &.mobile {
+                max-width: 520px;
+                display: block;
+                @media ($large-screen-up) {
+                    display: none;
+                }
+            }
+        }
+
+        .boost-your-event {
+            .gfield_radio {
+                li {
+                    label {
+                        display: inline-block;
+                        position: relative;
+                        top: 2px;
+                        left: 5px;
+                    }
+                }
+            }
+        }
+
+        .input-cx-textarea .textarea {
+            width: 99%;
+            min-height: 150px;
+        }
+
+        .input-cx-file-field {
+            background-color: #fafbff;
+            border: 2px dashed rgba(0, 0, 0, 0.25);
+            text-align: center;
+            padding: 1rem;
+            color: rgba(0, 0, 0, 0.45);
+            max-width: 476px;
+            position: relative;
+            height: 80px;
+            margin-bottom: 1em;
+
+            &.gfield_error{
+                margin-bottom: 2rem;
+            }
+
+            input[type="file"] {
+                width: 0.1px;
+                height: 0.1px;
+                opacity: 0;
+                overflow: hidden;
+                position: absolute;
+                z-index: -1;
+            }
+
+            .gfield_label {
+                position: absolute;
+                width: 100%;
+                margin-bottom: 0;
+                top: 0;
+                left: 0;
+                padding-top: 25px;
+                height: 87px;
+                cursor: pointer;
+                z-index: 1;
+                font-weight: bold;
+            }
+
+            .gfield_description {
+                font-size: 0.9rem;
+                position: relative;
+                top: -35px;
+                overflow: hidden;
+                white-space: nowrap;
+                &.validation_message{
+                    left: -19px;
+                }
+            }
+            .ginput_preview{
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+                z-index: 2;
+                .gform_delete{
+                    margin-right: 5px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+
+    .cx-submission-section-title .gsection_title {
+        font-size: 2.5rem;
+        font-weight: 600;
+        font-style: italic;
+    }
+
+    .cx-submission-section-title.payment-section{
+        margin-top: 40px;
+    }
+
+    .cx-submission-section-subtitle .gsection_title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-top: 1.5em;
+    }
+
+    .gform-required-fields-msg{
+        color: #636680;
+        font-size: rem(14);
+        margin-top: 24px;
+    }
+
+    .gfield_description.validation_message{
+        color: red;
+        text-align: left;
+    }
+}
+
+// Buttons styles
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gform_wrapper {
+        .gform_button,
+        .gform_next_button,
+        .gform_previous_button {
+            -webkit-font-smoothing: antialiased;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: $green;
+            border: 2px solid transparent;
+            color: #fff;
+            cursor: pointer;
+            display: inline-block;
+            font-family: "proxima-nova", sans-serif;
+            font-size: 1.125rem;
+            font-weight: bold;
+            line-height: 1;
+            padding: 0.8rem 1.925rem;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            -webkit-transition: background-color 300ms ease-in-out;
+            transition: background-color 300ms ease-in-out;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            vertical-align: middle;
+        }
+    }
+}
+
+// Stylized check boxes to shows as a buttons
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gform_wrapper {
+        .checkbox-buttons .gfield_checkbox {
+            li {
+                display: inline-block;
+                position: relative;
+                left: -12px;
+                margin-right: 0.5rem;
+                margin-bottom: 0;
+                margin-top: -10px;
+
+                input {
+                    opacity: 0;
+                    width: 0;
+                    height: 0;
+                }
+
+                label {
+                    padding: 0.75rem 1.1rem;
+                    background-color: transparent;
+                    border: 2px solid $green;
+                    border-radius: 25px;
+                    box-shadow: inset 0 1px 3px rgba(0, 170, 79, 0.06);
+                    box-sizing: border-box;
+                    cursor: pointer;
+                    font-size: 0.925rem;
+                    color: $green;
+                }
+
+                input:checked + label {
+                    background-color: $green;
+                    color: white;
+                }
+            }
+        }
+    }
+}
+
+// Review and preview your entry styles
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gform_wrapper {
+        .submission-preview-container {
+            .preview-item {
+                max-width: 510px;
+                &--sub-title {
+                    font-size: rem(20);
+                    color: #58595b;
+                    margin-top: 32px;
+                    margin-bottom: 16px;
+                }
+                &--label {
+                    font-size: rem(14);
+                    margin-left: 8px;
+                }
+                &--box {
+                    background-color: white;
+                    border: 1px solid #abb0c0;
+                    padding: 0.33333em;
+                    max-width: 510px;
+                    color: #001a1d;
+                    margin-bottom: 0.5em;
+                }
+                &--textarea {
+                    min-height: 168px;
+                }
+                &--img{
+                    background-position: center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                }
+            }
+            .preview-item--dates {
+                display: flex;
+                justify-content: space-around;
+                max-width: 527px;
+                .preview-item--box {
+                    flex: 1;
+                }
+                .sep-date-item {
+                    flex: 0.25;
+                    text-align: center;
+                    position: relative;
+                    top: 7px;
+                    display: none;
+                }
+                #preview-cx-event-date-end{
+                    display: none;
+                }
+            }
+            #preview-cx-event-tags {
+                li {
+                    background-color: $green;
+                    padding: 0.75rem 1.1rem;
+                    border: 2px solid $green;
+                    color: white;
+                    border-radius: 25px;
+                    font-size: 0.925rem;
+                    display: inline-block;
+                    &:not(:last-child) {
+                        margin-right: 0.5rem;
+                    }
+                }
+            }
+            #preview-cx-event-sponsored-dates{
+                li{
+                    &::before{
+                        display: inline-block;
+                        content:'';
+                        width: 18px;
+                        height: 14px;
+                        background-image: url('./assets/icons/checkmark.svg');
+                        background-repeat: no-repeat;
+                        margin-right: 8px;
+                        position: relative;
+                        top: 1px;
+                    }
+                }
+            }
+            #preview-cx-event-banner{
+                height: 136px;
+            }
+
+            #preview-cx-event-speaker1-img, #preview-cx-event-speaker2-img{
+                width: 144px;
+                height: 144px;;
+            }
+
+            #preview-cx-event-promotions {
+                min-height: 80px;
+            }
+            .extra-item,
+            .speaker1-item,
+            .speaker2-item,
+            .promotion-item {
+                display: none;
+            }
+        }
+        .preview-featured {
+            display: flex;
+            position: relative;
+            color: $green;
+            background-color: white;
+            padding: 0.59rem 0;
+            box-shadow: 0 1px 0 0 #abb0c0;
+
+            &::before {
+                position: absolute;
+                display: block;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 4px;
+                background-color: $green;
+                content: "";
+            }
+
+            .preview-item {
+                margin: 0 0.65rem;
+                padding: 0.1rem 0;
+            }
+
+            #preview-cx-event-date {
+                flex: 0.75;
+            }
+
+            #preview-cx-event-title {
+                flex: 2;
+                font-family: "adelle", serif, "proxima-nova", sans-serif;
+                font-weight: 600;
+            }
+
+            #preview-cx-event-host-name {
+                flex: 0.85;
+            }
+
+            #preview-cx-event-location {
+                flex: 0.7;
+            }
+
+            #preview-cx-event-plus {
+                flex: 0.1;
+
+                .circle {
+                    border-radius: 50%;
+                    width: 20px;
+                    height: 20px;
+                    background-color: #00aa4f;
+                    position: relative;
+                    top: 4px;
+                }
+
+                .bar {
+                    margin: 0 auto;
+                    position: absolute;
+                    background-color: #fff;
+                    text-indent: -999999px;
+                }
+
+                .horizontal {
+                    width: 60%;
+                    height: 10%;
+                    left: 20%;
+                    top: 45%;
+                }
+
+                .vertical {
+                    width: 10%;
+                    height: 60%;
+                    left: 45%;
+                    top: 20%;
+                }
+            }
+        }
+
+        .preview-extra {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .cx-preview-product-field {
+            float: left;
+        }
+
+        .input-cx-range-qty {
+            float: left;
+            margin-left: 4.75rem;
+
+            .ginput_container input {
+                margin: 0;
+                padding: 0;
+            }
+        }
+
+        .cx-preview-total-field {
+            float: left;
+        }
+    }
+}
+
+// Payment information styles
+.page-template-template-cx-event-submission .cx-event-submission-form-wrap {
+    .gform_wrapper {
+        .cx-cc-notification-email {
+            margin-top: 1rem;
+            clear: both;
+        }
+
+        .cx-event-submission-cc {
+            .ginput_container_creditcard{
+                .ginput_full:first-child{
+                    position: relative;
+                    display: block;
+                    padding-bottom: 0.75em;
+                    &::before{
+                        display: block;
+                        content:'';
+                        position: absolute;
+                        width: 24px;
+                        height: 24px;
+                        background-image: url('./assets/icons/credit-card.svg');
+                        background-repeat: no-repeat;
+                        top: 14px;
+                        right: 10px;
+                    }
+                }
+                .ginput_full:last-child{
+                    display: block;
+                    margin-top: 4.5rem;
+                    clear: both;
+                }
+            }
+            .gform_card_icon {
+                margin-right: 4px;
+                text-indent: -9000px;
+                background-image: url(/wp-content/plugins/gravityforms/images/gf-creditcard-icons.png);
+                background-repeat: no-repeat;
+                width: 1px; // 36px;
+                height: 1px; // 32px;
+                float: left;
+
+                &.gform_card_icon_amex {
+                    background-position: -72px 0px;
+                }
+
+                &.gform_card_icon_discover {
+                    background-position: -108px 0px;
+                }
+
+                &.gform_card_icon_mastercard {
+                    background-position: -36px 0px;
+                }
+
+                &.gform_card_icon_visa {
+                    background-position: 0 0;
+                }
+
+                &.gform_card_icon_jcb {
+                    background-position: -180px 0px;
+                }
+
+                &.gform_card_icon_maestro {
+                    background-position: -144px 0px;
+                }
+            }
+
+            .ginput_card_expiration {
+                float: left;
+                padding-top: 0.75rem;
+                padding-bottom: 0.75rem;
+                width: 32.4%;
+                border-radius: 0;
+
+                &.ginput_card_expiration_month {
+                    margin-right: 1.4%;
+                }
+            }
+
+            .ginput_cardinfo_right {
+                float: right;
+                width: 32.4%;
+            }
+    
+            .ginput_card_security_code_icon{
+                display: none;
+            }
+        }
+    }
+}
+
+// JQuery UI Date picker styles
+.page-template-template-cx-event-submission {
+    .ui-datepicker-month,
+    .ui-datepicker-year {
+        font-size: 0.9rem;
+        padding: 0.5rem 0.4rem 0.4rem;
+        border-radius: 5px;
+        margin: 0.4rem;
+    }
+
+    #ui-datepicker-div {
+        margin-top: -100px;
+    }
+
+    .cx-event-submission-form-wrap .gform_wrapper {
+        .input-cx-event-dates {
+            .gfield_list {
+                margin: 0;
+
+                td.gfield_list_cell {
+                    position: relative;
+                    &::before {
+                        display: block;
+                        width: 20px;
+                        height: 20px;
+                        content: "";
+                        position: absolute;
+                        right: 9%;
+                        top: 21px;
+                        background-image: url(./assets/icons/calendar-icon.svg);
+                        background-repeat: no-repeat;
+                    }
+                    input.datepicker {
+                        &:not(.datepicker_no_icon) {
+                            width: 96% !important;
+                            pointer-events: none;
+                            padding-left: 10px;
+                            padding-top: 0.4em;
+                            padding-bottom: 0.2em;
+                            color: transparent;
+                            text-shadow: 0 0 0 #000;
+                        }
+
+                        &:focus {
+                            outline: none;
+                        }
+                    }
+
+                    img.ui-datepicker-trigger {
+                        position: absolute;
+                        top: 24px;
+                        right: 10%;
+                        cursor: pointer;
+                        opacity: 0;
+                    }
+                }
+
+                td.gfield_list_icons {
+                    .add_list_item,
+                    .delete_list_item {
+                        width: 20px !important;
+                        height: 20px !important;
+                        background-size: 20px 20px !important;
+                        position: relative;
+                    }
+                    .add_list_item {
+                        &::before {
+                            width: 12px;
+                            height: 12px;
+                            position: absolute;
+                            top: 1px;
+                            left: 5px;
+                            content: "";
+                            background-image: url(./assets/icons/plus-sign.svg);
+                            background-repeat: no-repeat;
+                        }
+                        img {
+                            opacity: 0;
+                        }
+                    }
+                    .delete_list_item {
+                        &::before {
+                            width: 12px;
+                            height: 12px;
+                            position: absolute;
+                            top: 1px;
+                            left: 10px;
+                            content: "";
+                            background-image: url(./assets/icons/minus-sign.svg);
+                            background-repeat: no-repeat;
+                        }
+                        img {
+                            position: relative;
+                            left: 10px;
+                            opacity: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Adjust hero banner height for the cx event submission page
+.page-template-template-cx-event-submission {
+    @media ($large-screen-up) {
+        .hero-banner-inner {
+            height: 515px !important;
+        }
+    }
+}

@@ -1,0 +1,77 @@
+{
+    "key": "group_5b240adc0395d",
+    "title": "Component - Resource Display",
+    "fields": [
+        {
+            "key": "field_5b240b53ec3e2",
+            "label": "Resource Display",
+            "name": "resource_display",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "auto": "Automatically",
+                "random": "Random",
+                "manual": "Manual"
+            },
+            "allow_null": 0,
+            "default_value": "auto",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5b240b84ec3e3",
+            "label": "Resources To Display",
+            "name": "resources_to_display",
+            "type": "post_object",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_5b240b53ec3e2",
+                        "operator": "==",
+                        "value": "manual"
+                    }
+                ]
+            ],
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "product"
+            ],
+            "taxonomy": "",
+            "allow_null": 1,
+            "multiple": 1,
+            "return_format": "object",
+            "ui": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 0,
+    "description": "",
+    "modified": 1561833204
+}

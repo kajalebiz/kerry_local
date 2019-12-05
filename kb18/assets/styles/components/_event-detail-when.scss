@@ -1,0 +1,21 @@
+.event-when__day {
+  display: grid;
+  grid-gap: rem(5);
+  grid-template-columns: 1fr;
+  margin-bottom: rem(18);
+
+  @media ($medium-screen-up) {
+    display: flex;
+    flex-direction: row;
+    grid-gap: rem(10);
+    margin-bottom: 0;
+  }
+}
+
+.event-when__date {
+  font-weight: bold;
+
+  @media ($medium-screen-up) {
+    min-width: 200px;
+  }
+}

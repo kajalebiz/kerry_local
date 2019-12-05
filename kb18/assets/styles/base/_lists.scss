@@ -1,0 +1,113 @@
+ol,
+ul {
+  margin-left: rem(20);
+  list-style-type: none;
+  padding: 0;
+
+  .green-li & {
+    margin-left: 0;
+  }
+}
+
+dl {
+  margin-bottom: $base-spacing;
+
+  dt {
+    font-weight: 600;
+    margin-top: $small-spacing;
+  }
+
+  dd {
+    margin: 0;
+  }
+}
+
+> dl,
+> ol,
+> ul,
+p {
+  margin-bottom: $base-spacing;
+}
+
+li {
+  margin-bottom: $small-spacing;
+}
+
+ol > li {
+  list-style-type: decimal;
+}
+
+ul > li {
+  list-style-type: none;
+
+  .green-li &,
+  .single-resource__content &,
+  .privacy-page .inner-content-section & {
+    margin: 0 0 rem(10) 0;
+
+    &::before {
+      color: $green;
+      content: '•';
+      margin-right: rem(15);
+      margin-left: -1.1em;
+    }
+  }
+}
+
+.tabbed-cta ul > li {
+  list-style-type: disc;
+
+  .green-li & {
+    align-items: center;
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+
+    &::before {
+      background: $green;
+      border-radius: 50%;
+      content: '';
+      display: block;
+      height: 6px;
+      margin: $base-spacing;
+      min-width: 6px;
+      width: 6px;
+      margin-left: -1em;
+    }
+  }
+}
+
+li ol,
+li ul {
+  margin-top: 1%;
+}
+
+.colored-list ul {
+  list-style-type: none;
+  margin-left: 0;
+
+  li {
+    list-style-type: none;
+
+    &:before {
+      color: $green;
+      content: '•';
+      font-size: rem(24);
+      margin-right: rem(15);
+      margin-left: -1em;
+      line-height: rem(20);
+
+      .page-is-red & {
+        color: $red;
+      }
+
+      .page-is-yellow & {
+        color: $yellow;
+      }
+
+      .page-is-blue & {
+        color: $blue;
+      }
+    }
+  }
+}

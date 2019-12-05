@@ -1,0 +1,289 @@
+{
+    "key": "group_5b22c603d209b",
+    "title": "Resource Details",
+    "fields": [
+        {
+            "key": "field_5b4fbf197ed3c",
+            "label": "Meta",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
+            "key": "field_5b22c6139231b",
+            "label": "Blurb",
+            "name": "blurb",
+            "type": "textarea",
+            "instructions": "Used on the archive and some other places.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_5b8ebcaa0632e",
+            "label": "Border on Archive",
+            "name": "border_on_archive",
+            "type": "true_false",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "Remove the border on the archive block for this resource.",
+            "default_value": 0,
+            "ui": 1,
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_5b88072ed871c",
+            "label": "Hover Blurb",
+            "name": "hover_blurb",
+            "type": "textarea",
+            "instructions": "Shows on the archive page when hovered.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "maxlength": "",
+            "rows": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_5b4e4ce6d2c60",
+            "label": "Resource Archive Large Vertical Image",
+            "name": "resource_archive_large_vertical_image",
+            "type": "image",
+            "instructions": "This image should be 1312 x 1632 px.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_5b4e4d77d2c61",
+            "label": "Resource Archive Smaller Vertical Image",
+            "name": "resource_archive_smaller_vertical_image",
+            "type": "image",
+            "instructions": "This image should be 608 x 768 px.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_5b4e4e18054aa",
+            "label": "Resource Archive Smaller Wide Image",
+            "name": "resource_archive_smaller_wide_image",
+            "type": "image",
+            "instructions": "This image should be 1312 x 768 px.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_5b894b15bbe8b",
+            "label": "Banner Image Width",
+            "name": "banner_image_width",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "full": "Full Width",
+                "not-full": "Not Full Width"
+            },
+            "allow_null": 0,
+            "default_value": "full",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5b894ce32e57c",
+            "label": "Image to Use for Banner",
+            "name": "banner_image_to_use",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "large-vertical": "Large Vertical",
+                "smaller-wide": "Smaller Wide"
+            },
+            "allow_null": 0,
+            "default_value": "large-vertical",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5b4fbf277ed3d",
+            "label": "The Download",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
+            "key": "field_5b8946369d083",
+            "label": "Subscribe Type",
+            "name": "subscribe_type",
+            "type": "button_group",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "requested": "Email Requested",
+                "confirmed": "Email Confirmed"
+            },
+            "allow_null": 0,
+            "default_value": "requested",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5b4fbf307ed3e",
+            "label": "Download File",
+            "name": "download_file",
+            "type": "file",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_5b4fbfb37ed3f",
+            "label": "Download Form Title",
+            "name": "download_form_title",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "resource"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1536081204
+}

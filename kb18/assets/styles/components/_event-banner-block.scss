@@ -1,0 +1,114 @@
+.event-banner-box {
+  background: white;
+  border: 16px solid $green;
+  max-width: 550px;
+  padding: rem(36);
+
+  @media ($medium-screen-up) {
+    padding: rem(64);
+  }
+}
+
+.event-banner-box__title {
+  color: $green;
+  font-size: rem(32);
+  font-weight: 600;
+  margin-bottom: rem(20);
+
+  @media (min-width: 450px) {
+    font-size: rem(48);
+  }
+
+  @media ($medium-screen-up) {
+    font-size: rem(64);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(72);
+  }
+}
+
+.event-banner-box__city {
+  font-family: $base-ff;
+  font-size: rem(20);
+  margin-bottom: 0;
+  text-transform: uppercase;
+
+  @media ($medium-screen-up) {
+    font-size: rem(24);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(32);
+  }
+}
+
+.event-banner-box__date {
+  font-size: rem(24);
+  font-style: italic;
+  font-weight: 700;
+}
+
+.event-banner-box__footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: rem(16);
+
+  @media ($medium-screen-up) {
+    align-items: flex-end;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 0;
+  }
+}
+
+.event-banner-box__footer-text {
+  margin-bottom: rem(16);
+  text-transform: uppercase;
+
+  &.event-passed {
+    color: $red;
+    font-size: rem(24);
+  }
+
+  @media ($medium-screen-up) {
+    margin-bottom: 0;
+    margin-right: rem(16);
+  }
+}
+
+/* Custom style */
+.counter-event-date {
+  margin-top:50px;margin-bottom:50px;
+  @media ($max-mobile-screen){
+    margin-top:40px;margin-bottom:30px;
+  }
+  .single-date{
+    display:inline-block;padding:0 15px;
+    @media ($max-mobile-screen){
+      padding:0 0px;
+    }
+    span{
+      width:80px;height:90px;display:inline-block;border-radius:7px;line-height:90px;font-size:75px;font-weight:400;font-style:normal;display:block;margin-bottom:5px;background-size:contain;background-repeat:no-repeat;background-position:center;background-image:url(http://kerrybodine.taskgrids.biz/wp-content/uploads/2019/04/121545.png);
+      @media ($max-mobile-screen){
+        width:50px;height:50px;line-height:50px;font-size:35px;
+      }
+    }
+    p{
+      margin:0;font-style:normal;text-transform:uppercase;font-size:30px;font-weight:600;
+      @media ($max-mobile-screen){
+        font-size:17px;
+      }
+    }
+    .single-time{
+      display:flex;flex-wrap:wrap;
+    }
+  }
+}
+.single-countdown .event-banner-box{
+  max-width:100%;
+  padding:0;
+  border:none;
+  background:none;
+  text-align:center;
+}

@@ -1,0 +1,96 @@
+{
+    "key": "group_5b1819b5e1146",
+    "title": "Component - Section Meta",
+    "fields": [
+        {
+            "key": "field_5b1819dbe7523",
+            "label": "Section ID",
+            "name": "section_id",
+            "type": "text",
+            "instructions": "Add an id for this section. This will allow you to link directly to it elsewhere.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5b181a12704ce",
+            "label": "Section Margins",
+            "name": "section_margins",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal",
+                "top": "Margin Top",
+                "bottom": "Margin Bottom",
+                "none": "None"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "normal",
+            "layout": "horizontal",
+            "return_format": "value"
+        },
+        {
+            "key": "field_5b181a5a0c071",
+            "label": "Section Paddings",
+            "name": "section_paddings",
+            "type": "radio",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "normal": "Normal",
+                "top": "Padding Top",
+                "bottom": "Padding Bottom",
+                "both": "Padding Both",
+                "none": "None"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "save_other_choice": 0,
+            "default_value": "none",
+            "layout": "horizontal",
+            "return_format": "value"
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "post"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1575466623
+}

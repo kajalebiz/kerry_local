@@ -1,0 +1,18 @@
+.blog-entry-cta {
+    border: 16px solid $yellow;
+    background-color: $green;
+    padding: $base-spacing*3;
+    color: #fff;
+    text-align: center;
+    max-width: 750px;
+    margin: $base-spacing*4 auto 0 auto;
+
+    @media ( max-width: 600px ) {
+        padding: $base-spacing*2;
+    }
+
+    h4 {
+        margin-bottom: $base-spacing*2;
+        line-height: 1.5;
+    }
+}

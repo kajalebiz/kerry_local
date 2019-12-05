@@ -1,0 +1,54 @@
+.obj-ictt {
+  display: inline;
+}
+
+a.obj-ictt {
+  text-decoration: none;
+}
+
+.obj-ictt-content {
+  color: #1da1f2;
+  transition: all 0.3s ease-in-out;
+}
+
+.obj-ictt-icon {
+  width: 20px;
+  vertical-align: middle;
+}
+
+.obj-ictt:hover .obj-ictt-content {
+  color: #1da1f2;
+}
+
+.obj-ictt-icon svg {
+  height: 18px;
+  position: relative;
+  top: 3px;
+  width: 18px;
+}
+
+.obj-ictt-icon svg #twitter_bird,
+.obj-ictt-icon svg #bg_box {
+  transition: all 0.3s ease-in-out;
+}
+
+.obj-ictt-icon svg #twitter_bird {
+  fill: #1da1f2;
+}
+
+.obj-ictt:hover .obj-ictt-icon svg #twitter_bird {
+  fill: #fff;
+}
+
+.obj-ictt:hover .obj-ictt-icon svg #bg_box {
+  fill: #1da1f2;
+}
+
+.blog-builder-tweet-icon {
+  margin-top: 15px;
+}
+
+.blog-builder-tweet-icon svg {
+  height: 35px;
+  width: 35px;
+}

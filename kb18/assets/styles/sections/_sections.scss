@@ -1,0 +1,109 @@
+.section-margin {
+  margin-top: $mobile-section-margin;
+  margin-bottom: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    margin-top: $desk-section-margin;
+    margin-bottom: $desk-section-margin;
+  }
+}
+
+.section-margin-bottom {
+  margin-bottom: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    margin-bottom: $desk-section-margin;
+  }
+}
+
+.section-padding {
+  padding-top: $mobile-section-margin;
+  padding-bottom: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    padding-top: $desk-section-margin;
+    padding-bottom: $desk-section-margin;
+  }
+}
+
+.section-padding-top {
+  padding-top: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    padding-top: $desk-section-margin;
+  }
+}
+
+.section-padding-bottom {
+  padding-bottom: $mobile-section-margin;
+
+  @media ($large-screen-up) {
+    padding-bottom: $desk-section-margin;
+  }
+}
+
+.smaller-section-title {
+  font-size: rem(32);
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: rem(32);
+}
+
+.smaller-section-intro-blurb {
+  margin-bottom: rem(18);
+  margin-top: rem(32);
+}
+
+// Section Specific one offs
+.what-youll-get-section {
+  overflow: auto;
+}
+
+.section-title {
+  font-size: rem(36);
+  margin-bottom: rem(46);
+  font-weight: 600;
+  line-height: 1;
+
+  @media ($medium-screen-up) {
+    font-size: rem(48);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(72);
+  }
+}
+
+.section-title.page-color,
+.page-is-green .section-title.page-color {
+  color: $green;
+}
+
+.page-is-red .section-title.page-color {
+  color: $red;
+}
+
+.page-is-yellow .section-title.page-color {
+  color: $yellow;
+}
+
+.page-is-blue .section-title.page-color {
+  color: $blue;
+}
+.event-list-section .section-title{
+  color:$green;
+  font-size:2.25rem;
+}
+@media ($large-screen-up){
+  .page-template-template-cxpa-landing-php {
+    .cxpaintro{padding-top:5rem;padding-bottom:5rem;}    
+  }  
+}
+@media ($medium-screen-up){
+  .page-template-template-cxpa-landing-php {    
+    .atc .inner-atc .cta-block-grid{margin-top:0;margin-bottom:7.375rem;}
+  }  
+}
+@media ($max-medium-screen){
+  .cxpaintro{padding-bottom:1.5em;}
+}

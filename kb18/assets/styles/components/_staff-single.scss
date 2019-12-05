@@ -1,0 +1,45 @@
+// Staff content
+.single-staff__outer {
+  background: $light-gray;
+  padding: $mobile-section-margin 0;
+
+  @media ($large-screen-up) {
+    padding: 3em 0 0;
+  }
+
+  .social-links {
+    margin: rem(20) 0;
+  }
+}
+
+.single-staff__name {
+  color: $green;
+  font-weight: 600;
+  margin-bottom: 0;
+
+  @media ($medium-screen-up) {
+    font-size: rem(58);
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(72);
+  }
+}
+
+.single-staff__position {
+  font-size: rem(24);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-style: italic;
+  font-family: $base-ff;
+}
+
+.single-staff__inner {
+  .green-button a {
+    margin-top: rem(32);
+
+    @media ($large-screen-up) {
+      margin-top: rem(48);
+    }
+  }
+}

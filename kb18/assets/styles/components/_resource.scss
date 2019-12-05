@@ -1,0 +1,90 @@
+// Regular Resource Block
+.resource-block__outer {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 520px;
+
+    @media ($large-screen-up) {
+        max-width: 100%;
+    }
+}
+
+.resource-block__outer a {
+    &:hover {
+        .resource-block__thumbnail {
+            opacity: 0.8;
+        }
+
+        .resource-block__title,
+        .resource-block__blurb {
+            color: $green;
+        }
+
+        .fake-button {
+            background-color: white;
+            border-color: $green;
+            color: $green;
+        }
+    }
+
+    .fake-button {
+        margin-top: rem(22);
+    }
+}
+
+.resource-block__title,
+.resource-block__blurb {
+    transition: color $base-timing $base-duration;
+}
+
+.resource-block__title {
+    color: $dark-gray;
+    font-size: rem(40);
+    font-style: italic;
+    font-weight: 600;
+    line-height: rem(48);
+}
+
+.resource-block__blurb {
+    color: $dark-gray;
+    font-size: rem(20);
+    line-height: rem(32);
+}
+
+.resource-block__thumbnail {
+    transition: opacity $base-timing $base-duration;
+
+    @media (min-width: 400px) {
+        max-width: 370px;
+    }
+}
+
+@media ($medium-screen-up) {
+    .home_resources_main .resource-block__title {
+        font-size: 32px;
+        line-height: 40px;
+        margin-bottom: 0px;
+    }
+
+    .cxpa-event-lists.home_resources_main .resource-block__title {
+        font-size: 40px;
+        line-height: 48px;
+        margin-bottom: 0px;
+    }
+}
+
+@media ($max-medium-screen) {
+    .cxpa-event-list .resource-block__title {
+        font-size: 1.8rem;
+        line-height: 2.5rem;
+    }
+}
+
+// Adjust hero banner height for the resources page
+.page-template-template-resources {
+    @media ($large-screen-up) {
+        .hero-banner-inner {
+            height: 480px !important;
+        }
+    }
+}

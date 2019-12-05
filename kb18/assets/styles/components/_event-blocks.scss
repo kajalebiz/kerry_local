@@ -1,0 +1,132 @@
+.side-by-side-events__grid {
+  .side-by-side__wrap {
+    &:last-of-type {
+      .events-grid__wrap {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.events-grid__wrap {
+  display: grid;
+  grid-gap: rem(48);
+  grid-template-columns: 1fr;
+  margin: rem(48) 0;
+
+  @media ($medium-screen-up) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media ($large-screen-up) {
+    grid-gap: rem(64);
+  }
+
+  &.no-top-marg {
+    margin: 0;
+  }
+
+  &.pad-top {
+    padding-top: rem(48);
+  }
+
+  &.pad-bottom {
+    padding-bottom: rem(48);
+  }
+
+  &.three-wide {
+    @media ($large-screen-up) {
+      grid-gap: rem(48);
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+.event-block__inner {
+  &:hover {
+    .event-block__thumb {
+      opacity: 0.8;
+    }
+
+    .event-block__title {
+      color: $green;
+    }
+
+    .fake-button {
+      background-color: white;
+      border-color: $green;
+      color: $green;
+    }
+  }
+}
+
+.event-block__thumb {
+  display: block;
+  transition: opacity $base-duration $base-timing;
+  -webkit-backface-visibility: hidden;
+}
+
+.event-block__title,
+.event-block__event-title {
+  color: $dark-gray;
+  font-size: rem(22);
+  margin: rem(16) 0;
+  transition: color $base-duration $base-timing;
+  line-height: 1;
+
+  @media ($large-screen-up) {
+    font-size: rem(24);
+  }
+}
+
+.event-block__city {
+  font-weight: 600;
+  font-size: rem(16);
+  text-transform: uppercase;
+}
+
+.event-block__date {
+  font-style: italic;
+  font-size: rem(16);
+  font-weight: 600;
+}
+
+.event-block__details {
+  padding: rem(20) rem(24);
+  display: flex;
+  flex-direction: column;
+}
+
+.inner-upcoming-events-section .events-grid__wrap {
+  grid-gap: rem(16);
+}
+
+.event-block__outer.card a {
+  background-color: $green;
+  display: block;
+  min-height: 100%;
+
+  .event-block__title,
+  .event-block__event-title {
+    color: white;
+  }
+
+  .event-block__event-title {
+    margin: 0 0 rem(10);
+    font-size: rem(24);
+  }
+
+  .event-block__title {
+    font-size: rem(16);
+    font-style: italic;
+    margin: 0;
+  }
+}
+
+a.events-grid__view_all {
+  text-decoration: underline;
+
+  &:hover {
+    text-decoration: none;
+  }
+}

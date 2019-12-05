@@ -1,0 +1,25 @@
+.clients-grid {
+  display: grid;
+  grid-gap: rem(32);
+  grid-template-columns: 1fr 1fr;
+
+  @media ($medium-screen-up) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  @media ($large-screen-up) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
+.front_feature_client {
+	.inner-featured-clients{
+		padding: 0;
+		clip-path: none;
+		padding-top: 6.125rem;
+		padding-bottom: 6.125rem;
+		background:  $yellow;
+		.no-bottom-image.wrap{
+			padding: 0;
+		}
+	}
+}

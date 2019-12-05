@@ -1,0 +1,49 @@
+.inner-book-hero-section {
+  min-height: rem(400);
+  position: relative;
+
+  @media ($medium-screen-up) {
+    min-height: rem(524);
+  }
+
+  @media ($large-screen-up) {
+    min-height: rem(720);
+  }
+
+  @media ( min-width: 2000px ) {
+    min-height: rem(880);
+  }
+}
+
+.book-hero-bg {
+  left: 50%;
+  min-height: 100%;
+  min-width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+
+  @media ($medium-screen-up) {
+    clip-path: polygon(0 0, 100% 0%, 100% calc(100% - 96px), 0% 100%);
+  }
+
+  @media ($large-screen-up) {
+    clip-path: polygon(0 0, 100% 0%, 100% calc(100% - 230px), 0% 100%);
+  }
+}
+
+.book-hero__book {
+  display: none;
+
+  @media ($medium-screen-up) {
+    bottom: rem(-48);
+    display: block;
+    max-width: 22%;
+    position: absolute;
+    right: 15%;
+  }
+}
+
+.single-staff .book-hero-section .book-hero-bg {
+  background-position: top center;
+}

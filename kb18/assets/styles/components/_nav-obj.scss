@@ -1,0 +1,288 @@
+.obj-menu {
+  align-items: center;
+  display: flex;
+}
+
+.obj-menu__top-item-link {
+  align-items: center;
+  color: white;
+  display: flex;
+  font-size: rem(20);
+  font-weight: 600;
+  min-height: 108px;
+  padding: 0 rem(12);
+  text-transform: uppercase;
+  opacity: 0.6;
+  transition: opacity $base-duration $base-timing;
+
+
+  .mega &:after {
+    border-bottom: 16px solid white;
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    bottom: 0;
+    content: '';
+    height: 0;
+    left: 50%;
+    opacity: 0;
+    position: absolute;
+    transform: translateX(-50%);
+    width: 0;
+  }
+
+  .mega &:before {
+    content: '';
+    position: absolute;
+    width: 149%;
+    height: 59%;
+    left: -120%;
+    bottom: -29%;
+    transform: rotate(-18deg);
+    pointer-events: none;
+  }
+
+  .scrolled & {
+    min-height: 68px;
+  }
+}
+
+.obj-menu__top-item {
+  position: relative;
+  transition: min-height $base-timing $base-duration;
+
+  &:hover {
+    .obj-menu__top-item__sub-menu {
+      bottom: 0;
+      left: 0;
+      opacity: 1;
+      transform: translateY(100%);
+
+      &.edge {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    .obj-mega-menu__hover {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .obj-menu__top-item-link {
+      opacity: 1;
+      &:after {
+        opacity: 1;
+      }
+      &:before {
+        pointer-events: all;
+      }
+    }
+  }
+
+  &:last-of-type {
+    .obj-menu__top-item-link {
+      padding-right: 0;
+    }
+  }
+
+  &:first-of-type {
+    .obj-menu__top-item-link {
+      padding-left: 0;
+    }
+  }
+}
+
+.obj-menu__top-item__sub-menu {
+  left: -200000px;
+  opacity: 0;
+  position: absolute;
+  transition: opacity $base-duration $base-timing;
+}
+
+.obj-menu__top-item__sub-menu-inner {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: rem(20);
+}
+
+.obj-menu__top-item__sub-menu-link {
+  color: $dark-gray;
+  display: block;
+  font-weight: 600;
+  min-width: 175px;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+// Mega Menu Details
+.obj-mega-menu__sub-menu {
+  display: flex;
+  flex-direction: row;
+  padding: rem(64) 0;
+}
+
+.obj-mega-menu__first-side {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
+
+.obj-mega-menu__second-side {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 67%;
+}
+
+.obj-mega-menu__large-title {
+  font-family: $head-ff;
+  font-size: rem(64);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: rem(32);
+  padding-right: rem(48);
+
+  @media (min-width: 1000px) {
+    font-size: rem(72);
+  }
+
+  a {
+    color: $dark-gray;
+
+    &:hover {
+      color: $green;
+    }
+  }
+}
+
+.obj-mega-menu__cta-link {
+  color: $dark-gray;
+  font-size: rem(20);
+  font-weight: 600;
+  margin-top: auto;
+  text-decoration: underline;
+
+  &:hover {
+    color: $green;
+  }
+}
+
+.obj-mega-menu__sub-sub-menu {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2%;
+  width: 49%;
+
+  &:nth-of-type(n + 3) {
+    margin-top: rem(28);
+  }
+
+  &:nth-of-type(2n) {
+    margin-right: 0;
+  }
+}
+
+.obj-mega-menu__sub-menu-title {
+  a {
+    align-items: center;
+    color: $dark-gray;
+    display: flex;
+    font-family: $head-ff;
+    font-size: rem(24);
+    font-weight: 600;
+    margin-bottom: rem(16);
+
+    &:before {
+      background: $green;
+      content: '';
+      display: inline-block;
+      height: 4px;
+      margin-right: rem(10);
+      transform: rotate(-45deg);
+      width: 24px;
+    }
+
+    &:hover {
+      color: $green;
+    }
+
+    .red & {
+      &:hover {
+        color: $red;
+      }
+
+      &:before {
+        background: $red;
+      }
+    }
+
+    .blue & {
+      &:hover {
+        color: $blue;
+      }
+
+      &:before {
+        background: $blue;
+      }
+    }
+
+    .yellow & {
+      &:hover {
+        color: $yellow;
+      }
+
+      &:before {
+        background: $yellow;
+      }
+    }
+  }
+}
+
+.obj-mega-menu__sub-menu-item {
+  color: $dark-gray;
+  font-size: rem(20);
+  font-weight: bold;
+  margin-bottom: rem(8);
+  padding-left: 35px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    color: $green;
+  }
+
+  .red & {
+    &:hover {
+      color: $red;
+    }
+  }
+
+  .blue & {
+    &:hover {
+      color: $blue;
+    }
+  }
+
+  .yellow & {
+    &:hover {
+      color: $yellow;
+    }
+  }
+}
+
+.obj-mega-menu__hover {
+  background: white;
+  left: 50%;
+  max-width: 2000px;
+  opacity: 0;
+  pointer-events: none;
+  position: fixed;
+  transform: translateX(-50%);
+  transition: opacity $base-duration $base-timing;
+  width: 100%;
+}

@@ -1,0 +1,68 @@
+.error404 {
+  .site-inner {
+    background: $light-gray;
+    display: inline-block;
+    position: relative;
+    width: 100%;
+  }
+
+  .content {
+    background-color: white;
+  }
+
+  .section-404 {
+    padding: $mobile-section-margin 0;
+    text-align: center;
+
+    .content-404 {
+      position: relative;
+    }
+
+    .amp-svg-wrap {
+      display: none;
+
+      @media ($large-screen-up) {
+        display: block;
+      }
+      svg {
+        display: block;
+        left: 50%;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .search-form {
+      position: relative;
+    }
+
+    @media ($large-screen-up) {
+      padding: rem(166) 0 rem(112);
+    }
+
+    p {
+      font-size: rem(22);
+      line-height: rem(28);
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 668px;
+
+      @media ($large-screen-up) {
+        font-size: rem(32);
+        line-height: rem(48);
+      }
+    }
+
+    input {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 336px;
+      text-align: center;
+    }
+
+    input[type='submit'] {
+      margin-top: rem(24);
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.event-list-filter__wrap {
+  align-items: center;
+  display: grid;
+  grid-gap: rem(16);
+  grid-template-columns: 1fr;
+  margin-bottom: rem(32);
+
+  @media ($medium-screen-up) {
+    display: flex;
+  }
+
+  .select-wrap {
+    margin-right: rem(16);
+  }
+
+  .filter-reset {
+    color: $green;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}

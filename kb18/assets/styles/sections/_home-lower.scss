@@ -1,0 +1,100 @@
+.home-lower-row {
+  margin-bottom: rem(64);
+  margin-top: rem(64);
+
+  @media ($medium-screen-up) {
+    margin-bottom: rem(80);
+    margin-top: rem(80);
+  }
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+}
+
+.home-lower-row-2 {
+  display: grid;
+  grid-gap: rem(64);
+  grid-template-columns: 1fr;
+
+  @media ($large-screen-up) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* custom style */
+.home_resources_main {
+  .resource-block__thumbnail{
+    height:300px;
+    object-fit:contain;
+    object-position:bottom;
+  }
+  @media ($extrasmall-screen-up){
+    img.wp-post-image{
+      height:300px;
+      width:100%;
+      object-fit:contain;
+      object-position:left;
+    }
+  }
+}
+.home {
+  .home-lower {
+    .bg-shape-wrap.oval-1{
+      top:-150px;right:inherit;
+    }
+    .bg-shape-wrap.twitter-1{
+      bottom:0;
+      left:7%;
+    }
+  }
+}
+.home_event_miss{
+  padding:32px;
+  background-size:cover;
+  background-position:center center;text-align:right;
+  background-color:$green;
+  @media ($max-medium-screen){
+    p{font-size:20px;line-height:28px;}
+  }
+  h3{
+    color:#FAFBFF;
+    font-family:Adelle;
+    font-size:40px;
+    font-style:italic;
+    font-weight:600;
+    line-height:48px;
+  }
+  p{
+    color:#FAFBFF;
+    font-family:"proxima-nova",sans-serif;
+    font-size:24px;
+    line-height:32px;
+  }
+}
+
+.twitter_responsive_sec .two-posts-grid .home-lower-row-2__second:nth-child(2) > p{margin:0;}
+.front_blogs .two-grid__post-block img{height:300px;width:100%;object-fit:contain;object-position:left;}
+
+@media (max-width:899px){
+  .twitter_responsive_sec .two-posts-grid{
+    display:block;
+    .home-lower-row-2__second:nth-child(1){
+      margin-bottom:5rem;
+    }
+  }  
+}
+@media ($extrasmall-screen-up){
+  .cxpa-event-lists.home_resources_main img.wp-post-image{width:100%;object-fit:cover;}
+}
+@media ($max-large-screen){
+  .front_blogs .two-grid__post-block img{height:auto;}
+}
+@media ($max-medium-screen){
+  .front_blogs .two-grid__post-block__title{height:100%!important;} 
+  .front_blogs .two-grid__post-block img{height:auto;}
+}

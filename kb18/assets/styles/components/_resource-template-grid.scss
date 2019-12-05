@@ -1,0 +1,150 @@
+$space: rem(48);
+
+// Resource template grid/block
+.resource-grid__wrap.top-grid {
+  display: grid;
+  grid-gap: rem(32);
+  grid-template-columns: 1fr;
+  padding: rem(48) 0 0;
+
+  @media ($medium-screen-up) {
+    grid-gap: rem(48);
+    grid-template-columns: repeat(2, 1fr);
+
+    .resource-archive-block__outer:first-of-type {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+
+  @media ($large-screen-up) {
+    grid-gap: rem(48);
+    grid-template-columns: repeat(3, 1fr);
+    padding: rem(85) 0 0;
+
+    .resource-archive-block__outer:first-of-type {
+      grid-column: span 2;
+      grid-row: span 2;
+    }
+  }
+}
+
+.resource-archive-block__image-wrap.has-border {
+  border: 1px solid #d2d5e2;
+}
+
+.resource-grid__wrap.alt-grid {
+  display: grid;
+  grid-gap: rem(32);
+  grid-template-columns: 1fr;
+  padding: rem(48) 0;
+
+  .small-wide-resource-img {
+    display: none;
+  }
+
+  @media ($medium-screen-up) {
+    grid-gap: rem(48);
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media ($large-screen-up) {
+    grid-gap: 04.1622766vw;
+    grid-template-columns: repeat(3, 1fr);
+    padding: rem(85) 0;
+
+    .resource-archive-block__outer {
+      grid-column: span 1;
+
+      &:nth-child(4n - 2),
+      &:nth-child(4n - 1) {
+        grid-column: span 2;
+
+        .small-wide-resource-img {
+          display: block;
+        }
+
+        .small-vert-resource-img {
+          display: none;
+        }
+      }
+    }
+  }
+
+  @media (min-width: 1155px) {
+    grid-gap: rem(48);
+  }
+}
+
+.resource-archive-block__outer {
+  transition: box-shadow $base-duration $base-timing;
+
+  &:hover {
+    box-shadow: 0 4px 8px rgba(#000, 0.25);
+
+    .resource-archive-block__details {
+      opacity: 1;
+    }
+
+    .fake-button {
+      border-color: white;
+
+      &:hover {
+        border-color: white;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    position: relative;
+
+    img {
+      display: block;
+      min-height: 100%;
+    }
+  }
+
+  .resource-archive-block__details {
+    background: $green;
+    bottom: -1px;
+    top: -1px;
+    right: -1px;
+    left: -1px;
+    opacity: 0;
+    padding: rem(10) rem(20);
+    position: absolute;
+    transition: opacity $base-duration $base-timing;
+    z-index: 2;
+    color: white;
+    font-size: rem(16);
+
+    @media ($large-screen-up) {
+      line-height: 2.3vw;
+    }
+
+    @media ($grande-screen-up) {
+      line-height: unset;
+    }
+
+    h3 {
+      color: white;
+      font-size: rem(20);
+      font-style: italic;
+      font-weight: 600;
+      margin: rem(10) 0 rem(20);
+    }
+
+    @media ($medium-screen-up) {
+      padding: rem(14) rem(24);
+    }
+
+    .fake-button {
+      margin: rem(20) 0 rem(10);
+      background: white;
+      color: $green;
+      display: inline-block;
+      padding: rem(8) rem(12);
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.event-detail-sec {
+  margin: rem(24) 0;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+
+  &.event-where__address {
+    margin-top: 0;
+  }
+
+  &.event-where__venue {
+    font-weight: bold;
+    margin-bottom: 0;
+
+    a.venue {
+      color: $base-font-color;
+      text-decoration: underline;
+    }
+  }
+}

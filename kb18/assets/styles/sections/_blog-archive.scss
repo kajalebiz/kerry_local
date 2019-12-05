@@ -1,0 +1,243 @@
+.blog-archive-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  background-color: transparent;
+
+  > * {
+    z-index: 1;
+  }
+
+  .blog-post {
+    margin-bottom: $base-spacing * 2;
+    max-width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+
+    &:first-of-type {
+      margin-top: $base-spacing * 2;
+    }
+  }
+
+  .title {
+    font-style: italic;
+    font-weight: 600;
+    margin-bottom: 18px;
+
+    a {
+      color: $dark-gray;
+    }
+  }
+
+  .meta {
+    margin-bottom: 28px;
+    font-family: $base-ff;
+
+    .date {
+      font-weight: 600;
+    }
+
+    .author-link {
+      color: $dark-gray;
+      text-decoration: underline;
+    }
+  }
+
+  .post-image img {
+    margin-bottom: $base-spacing;
+  }
+
+  .excerpt {
+    line-height: 1.6;
+  }
+}
+
+$rotation: 9.5deg;
+
+.blog-archive-cta-form-outer {
+  background-color: $blue;
+  padding: $base-spacing * 6 12%;
+  margin: $base-spacing * 4 0 $base-spacing * 6 0;
+  display: flex;
+  justify-content: center;
+  width: 112%;
+  transform: rotate(-$rotation);
+
+  body.single-post & {
+    position: relative;
+    z-index: 1;
+  }
+
+  .single-post & {
+    margin-top: -45px;
+  }
+
+  &:last-child {
+    margin-bottom: 180px;
+  }
+
+  .blog-archive-cta-form-inner {
+    width: 500px;
+    max-width: 100%;
+    transform: rotate($rotation);
+
+    @media (max-width: 600px) {
+      width: 300px;
+    }
+
+    @media (max-width: 425px) {
+      width: 250px;
+    }
+  }
+
+  .gform_confirmation_wrapper {
+    color: white;
+  }
+
+  .form-heading {
+    color: white;
+    margin-bottom: 1.5rem;
+    font-size: 4rem;
+  }
+
+  .mc_embed_signup {
+    margin-bottom: $base-spacing/2;
+  }
+
+  label {
+    display: none;
+  }
+
+  input[type='email'] {
+    width: 100%;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.blog-archive-grid .archive-pagination.pagination {
+  ul {
+    margin: 0;
+    display: flex;
+  }
+
+  li {
+    margin: 0;
+    border-top: 1px solid $darker-light-gray;
+    border-bottom: 1px solid $darker-light-gray;
+    border-left: 1px solid $darker-light-gray;
+    border-radius: 0;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    a {
+      padding: 0;
+    }
+
+    &.pagination-omission {
+      border-top: 0;
+      border-bottom: 0;
+    }
+
+    &:first-child {
+      border-top-left-radius: $base-border-radius;
+      border-bottom-left-radius: $base-border-radius;
+    }
+    &:last-child {
+      border-top-right-radius: $base-border-radius;
+      border-bottom-right-radius: $base-border-radius;
+      border-right: 1px solid $darker-light-gray;
+    }
+  }
+}
+
+.blog-category-selector {
+  display: flex;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  flex-wrap: wrap;
+
+  .blog-categories-dropdown {
+    position: relative;
+    width: 365px;
+    margin-left: $base-spacing/2;
+
+    select {
+      appearance: none;
+      background-color: #fff;
+      border-radius: 5px;
+      box-sizing: border-box;
+      color: #abb0c0;
+      font-size: 1.25rem;
+      height: 100%;
+      line-height: 1em;
+      margin-bottom: 0;
+      padding: $base-spacing / 2;
+      position: relative;
+      width: 100%;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      &::placeholder,
+      option {
+        color: #abb0c0;
+      }
+    }
+
+    &:after {
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid #abb0c0;
+      content: '';
+      height: 0;
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      width: 0;
+    }
+  }
+
+  .subcategory-tags-outer {
+    width: 100%;
+    margin-top: $base-spacing;
+
+    .subcategory-tags {
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    li {
+      list-style-type: none;
+      border: 2px solid $green;
+      border-radius: 50px;
+      margin: 0.5rem;
+      font-size: 16px;
+
+      a {
+        border-radius: 50px;
+        display: block;
+        padding: $base-spacing/2 $base-spacing;
+      }
+
+      &:hover,
+      &.active {
+        background-color: $green;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
+  }
+}
+
+.ginput_container {
+  height: 100%;
+}

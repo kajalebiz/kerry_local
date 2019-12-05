@@ -1,0 +1,63 @@
+image: node:10.16
+# Shared steps, see: https://bitbucket.org/site/master/issues/12751/allow-more-capable-steps-that-can-be#comment-45440424
+sharedsteps:
+  - nodesetup: &nodesetup
+      name: Node packages setup
+      caches:
+        - node
+      script:
+        # install deps
+        - npm install
+
+pipelines:
+    branches:
+        develop:
+            - step: *nodesetup
+            - step:
+                name: Compile and deploy to development
+                deployment: Development
+                script:
+                    # node tasks
+                    - npm install
+                    - npx gulp sass
+                    - npx gulp editor-sass
+                    - npx gulp scripts
+                    # install lftp
+                    - export DEBIAN_FRONTEND=noninteractive
+                    - "which lftp || ( apt-get update -y && apt-get install lftp -y )"
+                    # sync theme files with the server
+                    - lftp -c "$FTP_SETUP; open sftp://$FTP_USER:$FTP_PASS@$FTP_HOST:$FTP_PORT; mirror -x .git/ -x ^node_modules/ -Rnev ./ /wp-content/themes/kb18 ;"
+                    - echo "Completed"
+        stage:
+            - step: *nodesetup
+            - step:
+                name: Compile and deploy to staging
+                deployment: Staging
+                script:
+                    # node tasks
+                    - npm install
+                    - npx gulp sass
+                    - npx gulp editor-sass
+                    - npx gulp scripts
+                    # install lftp
+                    - export DEBIAN_FRONTEND=noninteractive
+                    - "which lftp || ( apt-get update -y && apt-get install lftp -y )"
+                    # sync theme files with the server
+                    - lftp -c "$FTP_SETUP; open sftp://$FTP_USER:$FTP_PASS@$FTP_HOST:$FTP_PORT; mirror -x .git/ -x ^node_modules/ -Rnev ./ /wp-content/themes/kb18 ;"
+                    - echo "Completed"
+        master:
+            - step: *nodesetup
+            - step:
+                name: Compile and deploy to production
+                deployment: Production
+                trigger: manual
+                script:
+                    # node tasks
+                    - npx gulp sass
+                    - npx gulp editor-sass
+                    - npx gulp scripts
+                    # install lftp
+                    - export DEBIAN_FRONTEND=noninteractive
+                    - "which lftp || ( apt-get update -y && apt-get install lftp -y )"
+                    # - lftp -c "$FTP_SETUP; open sftp://$FTP_USER:$FTP_PASS@$FTP_HOST:$FTP_PORT; mirror -x .git/ -x ^node_modules/ -Rnev ./ /wp-content/themes/kb18 ;"
+                    - echo "Completed"

@@ -1,0 +1,23 @@
+.top-angled-image {
+  img {
+      display: block;
+      padding-top: $mobile-section-margin;
+
+      @media ($medium-screen-up) {
+        clip-path: polygon(0 96px, 100% 0%, 100% 100%, 0% 100%);
+        padding-top: 0;
+      }
+
+      @media ($large-screen-up) {
+        clip-path: polygon(0 230px, 100% 0%, 100% 100%, 0% 100%);
+      }
+  }
+
+  body.single-sc_event & {
+    display: none;
+
+    @media ($medium-screen-up) {
+      display: block
+    }
+  }
+}

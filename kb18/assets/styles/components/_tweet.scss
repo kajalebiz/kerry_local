@@ -1,0 +1,21 @@
+.twitter-hero .tweet {
+  font-size: rem(24);
+  font-style: italic;
+  line-height: rem(32);
+
+  @media ($medium-screen-up) {
+    font-size: rem(36);
+    line-height: rem(44);
+  }
+}
+
+.twitter-hero .green-button a {
+  margin-top: rem(24);
+
+  @media ($medium-screen-up) {
+    margin-top: rem(34);
+  }
+}
+@media ($medium-screen-up){
+  .home .twitter-hero .tweet{font-size:28px;line-height:40px;}
+}

@@ -1,0 +1,487 @@
+// zindex scale
+// All the way back -1000
+// Behind Icons -100
+// Icons 0
+// Above Icons 10
+
+// Shape Parent
+.content-section,
+.book-hero-section,
+section.about-kerry,
+section.home-lower,
+section.service-lower,
+section.why-kerry,
+section.what-youll-get-section,
+section.event-cats,
+section.event-list-section,
+section.single-resource__outer,
+section.single-staff__outer,
+.contact-page__outer,
+.mailchimp-section {
+    position: relative;
+    overflow: visible;
+}
+
+// Standard Shape Positioning/Opacity
+.bg-shape-wrap {
+    opacity: 0.1;
+    position: absolute;
+    z-index: 1;
+
+    &.twitter {
+        g path {
+            fill: $bg-icons-gray;
+        }
+    }
+
+    &.ampersand {
+        opacity: 1;
+
+        svg {
+            width: 633px;
+            height: 633px;
+        }
+
+        g path {
+            fill: $bg-icons-gray;
+        }
+    }
+}
+
+// Position Just Behind Shape
+.angled-slider-section .top-color-block {
+    z-index: 0;
+}
+
+// Position Above Shape (with relative)
+.inner-about-kerry .logo-inner img,
+.inner-about-kerry .button-wrap,
+.inner-about-kerry .testimonial,
+.inner-about-kerry .about-content,
+.home-lower-row,
+.inner-service-section,
+.inner-angled-cta-section,
+.inner-service-lower,
+section.jump-nav,
+section.hero-banner,
+.inner-featured-clients,
+.inner-why-kerry,
+.inner-what-youll-get-section,
+.top-angled-image img,
+.inner-footer-form-cta,
+.inner-event-cats,
+.inner-angled-event-numbers,
+.inner-event-list-section,
+.inner-foot-cta,
+.single-resource__inner,
+.resource-banner__outer>.wrap,
+.inner-content-section,
+.inner-social-section,
+.inner-event-staff-section,
+.single-staff__inner,
+.contact-page__outer>.wrap,
+.mailchimp-section>.wrap {
+    position: relative;
+    z-index: 10;
+}
+
+// Position Above Shape
+.angled-slider-section .angled-slider-wrap,
+.content-section .inner-content-section,
+.inner-book-hero-section {
+    z-index: 10;
+}
+
+// Specific Positioning
+
+// Content Section
+.content-section {
+    .bg-shape-wrap.rectangle-1 {
+        left: -540px;
+        top: 20px;
+
+        .service-landing & {
+            top: -250px;
+        }
+
+        .speaking-keynote &,
+        .speaking-webinars & {
+            top: -100px;
+        }
+
+        .cx-design-sub & {
+            top: 700px;
+            left: -250px;
+        }
+
+        .ed-bootcamps &,
+        .culture-creation & {
+            top: 300px;
+            left: -250px;
+            transform: scale(0.8);
+        }
+    }
+
+    .bg-shape-wrap.oval-1 {
+        right: -200px;
+        top: 60px;
+        display: none;
+
+        .ed-bootcamps &,
+        .culture-creation & {
+            top: -250px;
+        }
+
+        .event-list & {
+            top: -150px;
+        }
+    }
+
+    @media ($large-screen-up) {
+        .bg-shape-wrap.oval-1 {
+            display: block;
+        }
+    }
+}
+
+// Home Book Hero
+.book-hero-section {
+    .bg-shape-wrap.oval-1 {
+        right: -350px;
+        bottom: -300px;
+    }
+}
+
+// Home Why Kerry
+.about-kerry {
+    .bg-shape-wrap.rectangle-1 {
+        left: -250px;
+        top: 350px;
+    }
+}
+
+.home-lower {
+    .bg-shape-wrap.oval-1 {
+        top: -350px;
+        right: -300px;
+    }
+
+    .bg-shape-wrap.rectangle-1 {
+        top: 555px;
+        right: -420px;
+        // transform: scale(1.1);
+        // display: none;
+    }
+
+    .bg-shape-wrap.twitter-1 {
+        bottom: -180px;
+
+        svg {
+            width: 675px;
+            height: 675px;
+        }
+    }
+}
+
+.service-lower {
+    .bg-shape-wrap.oval-1 {
+        top: -250px;
+        right: -250px;
+    }
+
+    .bg-shape-wrap.rectangle-1 {
+        top: 225px;
+        left: -250px;
+        transform: scale(0.8);
+    }
+}
+
+.content-section {
+    .bg-shape-wrap.rectangle-1 {
+        left: -540px;
+        top: 20px;
+        top: inherit;
+        bottom: -230%;
+    }
+}
+
+
+.why-kerry {
+    .bg-shape-wrap.oval-1 {
+        bottom: 800px;
+        right: -250px;
+    }
+
+    .bg-shape-wrap.rectangle-1 {
+        bottom: -225px;
+        left: -250px;
+        transform: scale(0.8);
+    }
+}
+
+.what-youll-get-section {
+    .bg-shape-wrap.oval-1 {
+        top: -250px;
+        right: -250px;
+
+        .culture-creation & {
+            top: -150px;
+        }
+    }
+
+    .bg-shape-wrap.oval-2 {
+        top: 1550px;
+        right: -250px;
+    }
+
+    .bg-shape-wrap.rectangle-1 {
+        top: 500px;
+        left: -250px;
+        transform: scale(0.8);
+    }
+
+    .bg-shape-wrap.rectangle-2 {
+        top: 1300px;
+        right: -250px;
+        transform: scale(0.8);
+    }
+
+    .jmap-coaching & {
+        .bg-shape-wrap.oval-1 {
+            top: 20px;
+        }
+
+        .bg-shape-wrap.rectangle-1 {
+            top: 770px;
+        }
+
+        .bg-shape-wrap.rectangle-2 {
+            top: 1570px;
+        }
+    }
+}
+
+section.event-cats,
+section.event-list-section {
+    .oval {
+        left: -50px;
+
+        &.oval-1 {
+            top: -250px;
+        }
+
+        &.oval-2 {
+            top: 1450px;
+        }
+
+        &.oval-3 {
+            top: 3150px;
+        }
+
+        &.oval-4 {
+            top: 4850px;
+        }
+
+        .event-list & {
+            left: auto;
+            right: -50px;
+        }
+    }
+
+    .rectangle {
+        transform: scale(0.8);
+        right: -250px;
+
+        &.rectangle-1 {
+            top: 400px;
+        }
+
+        &.rectangle-2 {
+            top: 2100px;
+        }
+
+        &.rectangle-3 {
+            top: 3800px;
+        }
+
+        &.rectangle-4 {
+            top: 5500px;
+        }
+
+        .event-list & {
+            right: auto;
+            left: -250px;
+        }
+    }
+}
+
+.single-resource__outer {
+    .bg-shape-wrap.oval-1 {
+        top: 750px;
+        left: -250px;
+    }
+
+    .bg-shape-wrap.rectangle-1 {
+        top: -225px;
+        right: -250px;
+    }
+}
+
+.about-template {
+    .bg-shape-wrap.ampersand-1 {
+        top: 20px;
+        left: 50px;
+    }
+
+    .bg-shape-wrap.ampersand-2 {
+        top: 750px;
+        right: 50px;
+    }
+
+    .bg-shape-wrap.ampersand-3 {
+        top: 1480px;
+        left: 50px;
+    }
+
+    .bg-shape-wrap.ampersand-4 {
+        top: 2210px;
+        right: 50px;
+    }
+}
+
+.single-staff__outer {
+    .bg-shape-wrap.ampersand-1 {
+        top: 120px;
+        left: 50px;
+    }
+}
+
+.contact-page__outer {
+    .bg-shape-wrap.ampersand-1 {
+        top: -100px;
+        left: -150px;
+    }
+
+    .bg-shape-wrap.ampersand-2 {
+        top: 320px;
+        right: -100px;
+        display: none;
+
+        @media ($large-screen-up) {
+            display: block;
+        }
+    }
+}
+
+.mailchimp-section {
+    .bg-shape-wrap.ampersand-1 {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        svg {
+            width: 425px;
+            height: 425px;
+        }
+    }
+}
+
+.speaking-exe-dinner .why-exe_dinner {
+    position: relative;
+    z-index: 10;
+    z-index: 9;
+
+    .bg-shape-wrap {
+        &.oval {
+            right: -200px;
+            top: -200px;
+        }
+
+        &.rectangle {
+            left: -210px;
+            bottom: -710px;
+            z-index: 11;
+        }
+    }
+
+    .wrap {
+        position: relative;
+        z-index: 1;
+    }
+}
+
+.journey-online-training {
+    .why-exe_dinner {
+        position: relative;
+
+        .bg-shape-wrap {
+            &.oval {
+                right: -240px;
+                top: -240px;
+            }
+
+            &.rectangle {
+                bottom: -480px;
+                z-index: 13;
+                left: -210px;
+            }
+        }
+
+        .wrap {
+            position: relative;
+            z-index: 13;
+        }
+    }
+
+    #jot-what {
+        background: $blue;
+    }
+}
+
+.single-countdown .event_detail .bg-shape-wrap {
+    &.rectangle {
+        top: -3.125rem;
+        right: -280px;
+        left: auto;
+        transform: rotate(111deg);
+    }
+
+    &.oval {
+        top: auto;
+        left: -99px;
+        bottom: -260px;
+    }
+}
+
+.cxpa-event-list {
+    .bg-shape-wrap {
+        &.oval {
+            top: -300px;
+            left: -250px;
+        }
+    }
+
+    .bg-shape-wrap.rectangle {
+        right: -490px;
+        top: -30px;
+    }
+}
+
+@media ($max-medium-screen) {
+    .cxpa-event-list .bg-shape-wrap {
+
+        &.rectangle,
+        &.oval {
+            display: none;
+        }
+    }
+}
+
+.event-submission-form-section .bg-shape-wrap {
+    &.oval {
+        top: -50px;
+    }
+    &.rectangle{
+        bottom: -44.5%;
+    }
+}

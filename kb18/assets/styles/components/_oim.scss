@@ -1,0 +1,101 @@
+#om-nfn1jxnnlkgqdc7uwhue {
+  .Campaign__content {
+    background-color: $light-gray !important;
+    border: 16px solid $green;
+    padding: rem(32) rem(32) !important;
+    position: relative;
+
+    @media ($large-screen-up) {
+      padding: rem(80) rem(64) !important;
+    }
+
+    &:before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      content: '';
+      display: block;
+      background-image: url('assets/icons/ampersand.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .Campaign__innerWrapper {
+    outline: none !important;
+  }
+
+  .Campaign__alphaLayer {
+    border: none !important;
+  }
+
+  .oim-title {
+    font-family: $head-ff !important;
+    font-size: rem(32) !important;
+    font-style: italic !important;
+    font-weight: 600 !important;
+    margin-bottom: rem(32) !important;
+    text-align: center !important;
+
+    @media ($medium-screen-up) {
+      font-size: rem(40) !important;
+    }
+  }
+
+  .oim-ul {
+    font-family: $base-ff !important;
+    font-size: rem(20) !important;
+    line-height: rem(28) !important;
+    list-style-type: none !important;
+    margin-bottom: rem(36) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    max-width: 460px !important;
+    text-align: left;
+
+    @media ($medium-screen-up) {
+      font-size: rem(24) !important;
+      line-height: rem(32) !important;
+    }
+
+    li {
+      list-style-type: none !important;
+
+      &:before {
+        color: $green;
+        content: '•';
+        margin-right: 0.9375rem;
+      }
+    }
+  }
+
+  form {
+    text-align: center;
+  }
+
+  label {
+    display: none !important;
+  }
+
+  input[type='text'] {
+    margin: rem(24) auto;
+    max-width: 350px !important;
+    text-align: center;
+  }
+}
+
+.cookie-notice-container {
+  font-size: rem(16);
+  padding: rem(12) !important;
+}
+
+.cn-set-cookie.cn-button {
+  background: $green;
+  color: white;
+  padding: rem(8);
+}
+
+#cookie-notice {
+  z-index: 1000000000 !important;
+}

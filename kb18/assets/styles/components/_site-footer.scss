@@ -1,0 +1,175 @@
+.site-footer {
+  background: $green;
+  color: white;
+  padding: rem(64) 0;
+  position: relative;
+  z-index: 10;
+
+  body.blog &,
+  body.archive &,
+  body.search-results &,
+  body.single-post & {
+    position: relative;
+  }
+  @media ($large-screen-up) {
+    padding: rem(96) 0 rem(64);
+  }
+}
+
+.footer-bg-oval svg {
+  display: block;
+  left: 50%;
+  max-width: 240px;
+  position: absolute;
+  top: 20%;
+  transform: translateX(-50%);
+
+  @media ($large-screen-up) {
+    bottom: 0;
+    left: 55%;
+    max-width: 90%;
+    top: unset;
+  }
+}
+
+.footer-creds {
+  display: grid;
+  grid-gap: $base-spacing * 2 0;
+  grid-template-columns: 1fr;
+  position: relative;
+
+  &.desktop {
+    display: none;
+  }
+
+  @media ($large-screen-up) {
+    &.desktop {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &.mobile {
+      display: none;
+    }
+  }
+}
+
+@media ($large-screen-up) {
+  .footer-first,
+  .footer-third {
+    width: 24%;
+  }
+}
+
+.footer-first {
+  text-align: center;
+
+  @media ($large-screen-up) {
+    text-align: left;
+  }
+}
+
+.footer-logo-wrap {
+  margin-bottom: rem(22);
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 250px;
+
+  @media ($large-screen-up) {
+    margin-left: 0;
+    max-width: 124px;
+  }
+}
+
+.footer-address {
+  font-size: rem(16);
+  margin-bottom: $base-spacing;
+}
+
+.footer-copyright {
+  font-size: rem(16);
+  margin-top: rem(48);
+  text-align: center;
+  margin-bottom: -2px;
+}
+
+.footer-happy-text {
+  font-family: $head-ff;
+  font-size: rem(40);
+  font-weight: 600;
+  line-height: rem(48);
+  text-align: center;
+
+  @media ($large-screen-up) {
+    font-size: rem(48);
+    line-height: rem(56);
+  }
+}
+
+.footer-second {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 425px;
+
+  .desktop & {
+    align-self: flex-end;
+  }
+}
+
+// Red Page Footer details
+.page-is-red .site-footer {
+  background: $red;
+
+  .footer-bg-oval svg {
+    path {
+      stroke: $foot-oval-red;
+    }
+  }
+
+  .footer-happy-text {
+    color: $foot-dark-red;
+
+    .text-yellow {
+      color: white;
+    }
+  }
+}
+
+// Yellow Page Footer details
+.page-is-yellow .site-footer {
+  background: $yellow;
+
+  .footer-bg-oval svg {
+    path {
+      stroke: $foot-oval-yellow;
+    }
+  }
+
+  .footer-happy-text {
+    color: $foot-dark-yellow;
+
+    .text-yellow {
+      color: white;
+    }
+  }
+}
+
+// Blue Page Footer details
+.page-is-blue .site-footer {
+  background: $blue;
+
+  .footer-bg-oval svg {
+    path {
+      stroke: $foot-oval-blue;
+    }
+  }
+
+  .footer-happy-text {
+    color: $foot-dark-blue;
+
+    .text-yellow {
+      color: white;
+    }
+  }
+}

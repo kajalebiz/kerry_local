@@ -1,0 +1,97 @@
+.inner-angled-event-numbers {
+  background: $green;
+  margin-top: $mobile-section-margin;
+  padding-top: $mobile-section-margin;
+  padding-bottom: $mobile-section-margin;
+
+  @media ($medium-screen-up) {
+    clip-path: polygon(0 96px, 100% 0%, 100% 100%, 0% 100%);
+    margin-top: 0;
+    padding-top: $mobile-section-margin * 2;
+    padding-bottom: $desk-section-margin;
+  }
+
+  @media ($large-screen-up) {
+    clip-path: polygon(0 230px, 100% 0%, 100% 100%, 0% 100%);
+    padding-top: rem(260);
+  }
+}
+
+.inner-angled-event-numbers .event-numbers__wrap {
+  @extend .one23grid;
+
+  > div {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
+
+.event-numbers__cx-events,
+.event-numbers__kb-events {
+  color: white;
+}
+
+.event-numbers__kb-events-number,
+.event-numbers__cx-events-number {
+  font-family: $head-ff;
+  font-size: rem(100);
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: rem(16);
+
+  @media ($medium-screen-up) {
+    font-size: rem(160);
+  }
+}
+
+.event-numbers__cx-events-title,
+.event-numbers__kb-events-title {
+  font-size: rem(32);
+  font-weight: 600;
+  line-height: rem(40);
+  text-transform: uppercase;
+}
+
+.event-numbers__blurb {
+  color: white;
+  font-size: rem(24);
+  font-weight: 600;
+  line-height: rem(40);
+  text-transform: uppercase;
+
+  @media (max-width: 600px) {
+    margin: $base-spacing * 2 0px !important;
+  }
+}
+
+.event-numbers__cta-form {
+  label {
+    display: none !important;
+  }
+
+  input {
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
+
+  input[type='submit'] {
+    @include button($yellow);
+  }
+
+  @media ($large-screen-up) {
+    form {
+      padding-left: rem(16);
+    }
+  }
+
+  .gform_wrapper ul {
+    margin: 0;
+  }
+
+  .gform_confirmation_message {
+    color: white;
+  }
+}

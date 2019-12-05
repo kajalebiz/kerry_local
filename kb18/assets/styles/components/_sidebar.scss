@@ -1,0 +1,20 @@
+.sidebar {
+    font-size: $base-font-size;
+}
+
+.sidebar li {
+    border-bottom: $base-border;
+    margin-bottom: $base-spacing;
+    padding-bottom: $base-spacing;
+}
+
+.sidebar p:last-child,
+.sidebar ul > li:last-child {
+    margin-bottom: 0;
+}
+
+.sidebar .widget {
+    background-color: white;
+    margin-bottom: $base-spacing*2;
+    padding: $base-spacing;
+}

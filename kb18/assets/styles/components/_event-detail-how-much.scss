@@ -1,0 +1,12 @@
+.event-how-much__included-title {
+  font-family: $base-ff;
+  font-weight: bold;
+
+  &.cancellation {
+    font-size: rem(16);
+  }
+}
+
+.event-how-much__cancel p {
+  font-size: rem(16);
+}

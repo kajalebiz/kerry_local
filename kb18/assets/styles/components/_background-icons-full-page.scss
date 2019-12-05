@@ -1,0 +1,122 @@
+$circle-width: 681px;
+$rectangle-width: 961px;
+body.blog,
+body.archive,
+body.search-results { 
+    .background-icons-full-page {
+        position: absolute;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        z-index: 0;
+
+        > * {
+            opacity: 0.1;
+            margin-bottom: 275px;
+            display: block;
+            position: relative;
+        }
+
+        > :nth-child( odd ) {
+            align-self: flex-end;
+        }
+
+        > :nth-child( 1 ) {
+            transform: translate( 50%, -50% );
+        }
+
+        > :nth-child( 2 ) {
+            transform: translate( -47% );
+        }
+
+        > :nth-child( 3 ) {
+            transform: translate( 50% );
+        }
+
+        > :nth-child( 5 ) {
+            transform: translate( 6% );
+        }
+
+        > :nth-child( 6 ) {
+            transform: translate( -33% );
+        }
+
+        > :nth-child( 7 ),
+        > :nth-child( 9 ),
+        > :nth-child( 11 ), {
+            transform: translate( 33% );
+        }
+
+        > :nth-child( 8 ),
+        > :nth-child( 10 ) {
+            transform: translate( -50% );
+        }
+    }
+}
+
+body.single-post .background-icons-full-page {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    z-index: 0;
+
+    > * {
+        opacity: 0.1;
+        display: block;
+        position: relative;
+    }
+
+    :nth-child( even ) {
+        align-self: flex-end;
+    }
+
+    > :nth-child( 1 ) {
+        transform: translate( -50% );
+    }
+
+    > :nth-child( 2 ) {
+        transform: rotate( 25deg ) translate( 30% );
+
+    }
+
+    > :nth-child( 3 ) {
+        transform: translate( 50% );
+        order: 1;
+    }
+
+    > :nth-child( 4 ) {
+        align-self: flex-start;
+        transform: translate( 10% );
+        margin-top: 350px;
+    }
+
+    > :nth-child( 5 ) {
+        transform: translate( 6% );
+        order: 1;
+    }
+
+    > :nth-child( 6 ) {
+        transform: translate( 33% );
+    }
+
+    > :nth-child( 7 ) {
+        transform: translate( -33% );
+    }
+
+    > :nth-child( 8 ) {
+        transform: translate( 40% );
+    }
+
+    > :nth-child( 9 ) {
+        transform: translate( -28% );
+    }
+
+    > :nth-child( 10 ) {
+        transform: translate( -50% );
+    }
+
+    > :nth-child( 11 ) {
+        transform: translate( 33% );
+    }
+}

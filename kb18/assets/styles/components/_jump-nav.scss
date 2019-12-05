@@ -1,0 +1,137 @@
+section.jump-nav {
+  background: $green;
+  display: none;
+
+  @media ($medium-screen-up) {
+    display: block;
+  }
+
+  .page-is-red & {
+    background: $red;
+  }
+
+  .page-is-yellow & {
+    background: $yellow;
+  }
+
+  .page-is-blue & {
+    background: $blue;
+  }
+
+  &.darker {
+    .page-is-green & {
+      background: $dark-green;
+    }
+
+    .page-is-yellow & {
+      background: $dark-yellow;
+    }
+  }
+}
+
+.inner-jump-nav {
+  display: grid;
+  grid-gap: rem(18);
+  grid-template-columns: 1fr;
+  padding: rem(18) 0;
+  text-align: center;
+
+  @media ($medium-screen-up) {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0;
+  }
+}
+
+.jump-nav__link {
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  @media ($medium-screen-up) {
+    display: inline-block;
+    margin-right: rem(20);
+    padding: rem(24) 0;
+    transition: opacity $base-duration $base-timing;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  @media ($large-screen-up) {
+    font-size: rem(20);
+    margin-right: rem(24);
+  }
+
+  &.is-button {
+    background: white;
+    border: 2px solid transparent;
+    color: $green;
+    padding: rem(10);
+    transition: border $base-duration $base-timing;
+
+    .page-is-red & {
+      color: $red;
+    }
+
+    .page-is-yellow & {
+      color: $yellow;
+    }
+
+    .page-is-blue & {
+      color: $blue;
+    }
+
+    &:hover {
+      border-color: $green;
+      opacity: 1;
+    }
+  }
+  &.active{
+    opacity:1;
+}
+  &.is-button{
+    opacity:1;
+  }
+}
+
+.top-page-arrow {
+  opacity: 0;
+  cursor: none;
+
+  @media ($medium-screen-up) {
+    margin-left: auto;
+    margin-right: 0;
+    transition: opacity $base-duration $base-timing;
+
+    &.scrolled {
+      cursor: pointer;
+      display: block;
+      opacity: 1;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+.speaking-exe-dinner {  
+  .jump-nav {
+    background-color: $dark-red !important;
+  }
+  .jump-nav__link.is-button {
+    padding: 0.46rem 1.7rem;
+    &:hover {
+      border-color: $dark-red !important;
+    }
+  }
+}
+.page-template-template-cxpa-landing-php .jump-nav__link.is-button {
+    padding: 0.440rem 1.6rem;
+}

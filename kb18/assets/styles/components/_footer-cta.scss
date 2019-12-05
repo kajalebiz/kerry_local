@@ -1,0 +1,34 @@
+.inner-hyo-foot-cta {
+  padding: $mobile-section-margin 0;
+  position: relative;
+  z-index: 10;
+
+  .top-angled-image {
+    display: none;
+  }
+
+  @media (max-width: 899px) and (min-width:600px) {
+    .block-outer-wrap {
+      margin-top: $base-spacing *4;
+    }
+  }
+  
+  @media ($large-screen-up) {
+    padding: 0;
+
+    .top-angled-image {
+      display: block;
+    }
+
+    .block-outer-wrap {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      z-index: 11;
+    }
+
+    .cta-block {
+      max-width: 350px;
+    }
+  }
+}

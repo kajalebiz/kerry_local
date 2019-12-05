@@ -1,0 +1,273 @@
+.hero-banner {
+    background-color: $dark-gray;
+    // position: relative;
+
+    body.blog &,
+    body.archive &,
+    body.search-results &,
+    body.single-post & {
+        position: relative;
+        z-index: 2;
+    }
+
+    body.search-results &:before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.533);
+    }
+
+    .service-landing & {
+        background-size: 500px;
+        background-position: bottom right;
+
+        @media ($medium-screen-up) {
+            background-size: 750px;
+        }
+
+        @media ($large-screen-up) {
+            background-size: 1000px;
+        }
+    }
+}
+
+.hero-banner-inner {
+    align-items: flex-start;
+    display: flex;
+    height: 450px;
+    position: relative;
+
+    .home & {
+        align-items: center;
+    }
+
+    @media ($medium-screen-up) {
+        align-items: center;
+        height: 600px;
+
+        &.position-bottom {
+            align-items: flex-end;
+        }
+
+        &.position-top {
+            align-items: flex-start;
+        }
+    }
+
+    @media ($large-screen-up) {
+        height: 800px;
+
+        .shorter-banner & {
+            height: 600px;
+        }
+
+        .super-short-banner & {
+            height: unset;
+        }
+    }
+
+    .privacy-page & {
+        height: unset;
+    }
+  @media ($large-screen-up) {
+    height: 720px !important;  
+}
+}
+
+.page-banner__content {
+    padding: $base-spacing * 4 0;
+    width: 100%;
+
+    @media ($large-screen-up) {
+/*    padding: rem(128) 0;*/
+    }
+
+    .privacy-page & {
+        padding-bottom: 0;
+    }
+}
+
+.page-banner__title {
+    color: $green;
+    font-size: rem(32);
+    font-weight: 600;
+    line-height: rem(40);
+    margin-bottom: 0;
+
+    @media ($medium-screen-up) {
+        font-size: rem(64);
+        line-height: rem(82);
+        max-width: rem(550);
+    }
+
+    @media ($large-screen-up) {
+        font-size: rem(88);
+        line-height: rem(96);
+        max-width: rem(675);
+    }
+
+    &.wide-title {
+        max-width: 100%;
+    }
+
+    &.between-wide-title {
+        max-width: 850px;
+    }
+}
+
+.page-banner__subtitle {
+    font-family: $base-ff;
+    font-size: rem(20);
+    line-height: rem(32);
+    margin-top: rem(10);
+
+    @media ($medium-screen-up) {
+        font-size: rem(32);
+        line-height: rem(40);
+    }
+}
+
+// Apply some alignments values if
+// the hero banner has a form in it
+.hero-banner-inner.has-form {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 540px;
+
+    @media ($medium-screen-up) {
+        height: 620px;
+    }
+
+    @media ($large-screen-up) {
+        flex-direction: row;
+        height: 800px;
+    }
+
+    // This container has the title and subtitle
+    .page-banner__content {
+        padding: 2rem 0;
+
+        @media ($large-screen-up) {
+            padding: 4rem 0;
+        }
+    }
+
+    // The form container
+    .page-banner__form-container {
+        .angled-slide__block {
+            position: relative;
+            max-width: 100%;
+            min-width: auto;
+            padding: 1.5rem;
+
+            // @media ($medium-screen-up) {
+            //     padding: 2rem;
+            // }
+            @media ($large-screen-up) {
+                max-width: 280px;
+                min-width: 280px;
+            }
+        }
+
+        .gform_wrapper ul {
+            margin-top: 0;
+
+            // Hide the label of that option was selected
+            .gfield {
+                &.hidden_label {
+                    .gfield_label {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// Privacy
+.privacy-page.page-is-green {
+    .hero-banner {
+        background-color: $light-gray;
+    }
+
+    .page-banner__title {
+        color: $green;
+    }
+}
+
+.page-is-red.colored-title {
+    .page-banner__title {
+        color: $red;
+    }
+}
+
+// Red Page Tweaks
+.page-is-red {
+    .hero-banner {
+        background-color: $red;
+    }
+
+    .page-banner__title {
+        color: white;
+    }
+}
+
+.page-is-red.colored-title {
+    .page-banner__title {
+        color: $red;
+    }
+}
+
+// Page is green things.
+.page-is-green {
+    .hero-banner {
+        background-color: $green;
+    }
+
+    .page-banner__title {
+        color: white;
+    }
+}
+
+.page-is-green.colored-title {
+    .page-banner__title {
+        color: $green;
+    }
+}
+
+// Page is yellow things.
+.page-is-yellow {
+    .hero-banner {
+        background-color: $yellow;
+    }
+
+    .page-banner__title {
+        color: white;
+    }
+}
+
+.page-is-yellow.colored-title {
+    .page-banner__title {
+        color: $yellow;
+    }
+}
+
+// Page is blue things.
+.page-is-blue {
+    .hero-banner {
+        background-color: $blue;
+    }
+
+    .page-banner__title {
+        color: white;
+    }
+}
+
+.page-is-blue.colored-title {
+    .page-banner__title {
+        color: $blue;
+    }
+}
