@@ -97,7 +97,8 @@ if ( $use_short_banner ) {
 $section_inline_style_attribute = 'style="background-image: url(' . $bg_image_url . '); ' . $bg_size_string . '"';
 
 $image_data_attribute = 'data-image-url="' . parse_url( $bg_image_url )['path'] . '"';
-if( KERRYBODINE_ACTIVATE_PAGE !== get_the_ID() ){
+if(!is_page(get_option( 'woocommerce_myaccount_page_id' ))){
+    if(get_the_ID() !== KERRYBODINE_ACTIVATE_PAGE ){
 ?>
 <section class="hero-banner bg-cover <?php echo $banner_class; ?>" <?php echo $section_inline_style_attribute; ?> <?php echo $image_data_attribute; ?>>
 
@@ -109,7 +110,7 @@ if( KERRYBODINE_ACTIVATE_PAGE !== get_the_ID() ){
 					<h3 class="page-banner__subtitle <?php echo $sub_title_case_class; ?>"><?php echo $subtitle; ?></h3>
 				<?php endif; ?>
 				<?php if ( ! empty( is_singular( 'sc_event' ) ) ) : ?>
-					<?php obj_do_event_banner_block(); ?>
+					<?php obj_do_event_banner_block(); ?>					
 				<?php endif; ?>
             </div>
         <?php if ( $use_form ) : ?>
@@ -127,4 +128,4 @@ if( KERRYBODINE_ACTIVATE_PAGE !== get_the_ID() ){
 	<?php endif; ?>
 
 </section>
-<?php } ?>
+<?php } } ?>

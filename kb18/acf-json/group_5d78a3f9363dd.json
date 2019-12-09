@@ -3,6 +3,42 @@
     "title": "Journey Mapping Enterprise  Subscription Users",
     "fields": [
         {
+            "key": "field_5dea4a9aad482",
+            "label": "Order Key",
+            "name": "kerrybodine_sub_enterprise_parent_order_key",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5dea4aafad483",
+            "label": "",
+            "name": "",
+            "type": "message",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "<label>Set up your Journey Mapping Master Toolkit subscribers<\/label>\r\nEnter the email of each subscriber who should have access to the Journey Mapping Master Toolkit. You can also do this later — just log into your account or check your inbox for instructions. For assistance, please contact <a href=\"mailto:concierge@kerrybodine.com\">concierge@kerrybodine.com<\/a>.\r\n\r\nOnce a subscriber invitation has been sent, your entire order is non-refundable and that subscription is non-transferrable.",
+            "new_lines": "wpautop",
+            "esc_html": 0
+        },
+        {
             "key": "field_5d78a403a3538",
             "label": "Journey Mapping Enterprise Users",
             "name": "kerrybodine_sub_enterprise_users",
@@ -12,25 +48,25 @@
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
-                "class": "",
+                "class": "custom_label_hide",
                 "id": "enterprise"
             },
             "collapsed": "",
             "min": 0,
             "max": 0,
-            "layout": "row",
+            "layout": "block",
             "button_label": "",
             "sub_fields": [
                 {
                     "key": "field_5d78a416a3539",
-                    "label": "Email",
+                    "label": "Subscriber Email",
                     "name": "kerrybodine_sub_enterprise_email",
                     "type": "email",
                     "instructions": "",
-                    "required": 1,
+                    "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
-                        "width": "",
+                        "width": "50",
                         "class": "",
                         "id": ""
                     },
@@ -38,8 +74,57 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
+                },
+                {
+                    "key": "field_5dea4adaad484",
+                    "label": "Send Success",
+                    "name": "kerrybodine_sub_enterprise_send_success",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": [
+                        [
+                            {
+                                "field": "field_5d78a416a3539",
+                                "operator": "!=empty"
+                            }
+                        ]
+                    ],
+                    "wrapper": {
+                        "width": "50",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "sent",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "maxlength": ""
                 }
             ]
+        },
+        {
+            "key": "field_5dea4afdad485",
+            "label": "Disclaimer",
+            "name": "kerrybodine_sub_enterprise_disclaimer",
+            "type": "checkbox",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "disclaimer_checkbox",
+                "id": ""
+            },
+            "choices": {
+                "I understand that once an invitation has been sent, my entire order is non-refundable and that subscription is non-transferrable.": "I understand that once an invitation has been sent, my entire order is non-refundable and that subscription is non-transferrable."
+            },
+            "allow_custom": 0,
+            "default_value": [],
+            "layout": "vertical",
+            "toggle": 0,
+            "return_format": "value",
+            "save_custom": 0
         }
     ],
     "location": [
@@ -59,5 +144,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1568191134
+    "modified": 1575635929
 }

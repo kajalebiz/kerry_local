@@ -40,3 +40,4 @@ require_once get_stylesheet_directory() . '/inc/_sections/add-to-calender.php';
 require_once get_stylesheet_directory() . '/inc/_sections/event-list.php';
 require_once get_stylesheet_directory() . '/inc/_sections/why-exe-dinner.php';
 require_once get_stylesheet_directory() . '/inc/_sections/what-online-training.php';
+require_once get_stylesheet_directory() . '/inc/_sections/membership-products.php';

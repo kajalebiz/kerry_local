@@ -60,11 +60,15 @@ function obj_cx_events_featured( $events ) {
  * Output the event list
  */
 function obj_cx_events_event_list( $events, $bottom_banner, $pagination ) {
+        $list_si_img  = get_field( 'list_single_event_image' );
+        $list_si_des  = get_field( 'list_single_event_des' );
+    
 	$events_list_sec = array(
 		'section_id'       => 'events-list',
 		'section_paddings' => 'both',
 		'section_margins'  => 'none',
 		'section_wrap'     => true,
+		'single_cx_event'  => array_merge($list_si_img, $list_si_des),
 	);
 
 	$bg_shapes = array(

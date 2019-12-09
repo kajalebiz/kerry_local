@@ -17,8 +17,19 @@ function obj_do_menu_tops() {
 			obj_do_top_menu_item( $tmi );
 		}
 
+                //Append My-Account Page
+                if ( is_user_logged_in() ) { 
+                    ?>
+                        <div class="obj-menu__top-item">
+                            <!--<a href="<?php // echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>" class="obj-menu__top-item-link  single my-account">-->
+                            <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-account' ) ); ?>" class="obj-menu__top-item-link  single my-account">
+                                <img height="20px" width="20px" src="<?php echo site_url(); ?>/wp-content/themes/kb18/assets/images/user-shape.svg">
+                            </a>
+			</div>
+                <?php }
+                
 		// Append WooCommerce cart to menu
-		if ( class_exists( 'WooCommerce' ) &&  WC()->cart->get_cart_contents_count() > 0 ) { ?>
+		if ( class_exists( 'WooCommerce' ) ) { ?>
 			<div class="obj-menu__top-item">
 				<a href="<?php echo WC()->cart->get_cart_url(); ?>" class="icon-cart icon-cart--desktop" title="<?php _e( 'View your shopping cart' ); ?>">
 					<div class="icon-cart__counter">

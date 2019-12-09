@@ -74,15 +74,26 @@ function obj_resource_featured() {
 						<div class="featured-resource__slider">
 							<?php foreach( $top_resource_grid_items as $resource_id ) : ?>
 								<?php if ( get_post_status($resource_id) == 'publish' ) : ?>
-									<?php $resource_thumb = get_the_post_thumbnail_url( $resource_id, 'large' ); ?>
-									<a href="<?php echo get_permalink($resource_id); ?>" class="featured-resource__slide">
+									<?php 
+                                                                            $product            = new WC_product($resource_id);
+                                                                            $attachment_ids     = $product->get_gallery_attachment_ids();
+                                                                            $resource_thumb     = wp_get_attachment_image_src( $attachment_ids[0], 'large' );
+                                                                            $feature_image      = get_the_post_thumbnail_url( $resource_id, 'large' );
+                                                                            $btn_text           = get_field( 'pro_front_button_text', $resource_id );
+//                                                                            $feature_image      = get_field( 'pro_front_feature_image', $resource_id );
+                                                                            
+//                                                                            $feature_image      = !empty($feature_image) ? $feature_image['url'] : '';
+                                                                            $permalink          = get_field( 'page_redirect_link', $resource_id );
+                                                                            $permalink          = !empty($permalink) ? $permalink : get_the_permalink($resource_id);
+                                                                        ?>
+									<a href="<?php echo $permalink; ?>" class="featured-resource__slide">
 										<div class="featured-resource__slide-inner">
-											<div class="featured-resource__slide-image" style="background-image: url(<?php echo $resource_thumb; ?>);"></div>
+											<div class="featured-resource__slide-image" style="background-image: url(<?php echo $feature_image; ?>);"></div>
 											<div class="featured-resource__slide-info">
 												<h3><?php echo get_the_title( $resource_id ); ?></h3>
 												<p><?php echo wp_trim_words( get_the_excerpt( $resource_id ), 18); ?></p>
 												<div class="fake-button">
-													<span class="button">VIEW MORE</span>
+													<span class="button"><?php echo $btn_text ? $btn_text : 'VIEW MORE';?></span>
 												</div>
 											</div>
 										</div>

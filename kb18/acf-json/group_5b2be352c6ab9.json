@@ -122,6 +122,13 @@
                 "operator": "==",
                 "value": "template-speaking-dinners.php"
             }
+        ],
+        [
+            {
+                "param": "page_template",
+                "operator": "==",
+                "value": "template-paid-cx-resources.php"
+            }
         ]
     ],
     "menu_order": 0,
@@ -132,5 +139,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1557828894
+    "modified": 1575625815
 }

@@ -28,7 +28,8 @@ function obj_cx_events_list_inner( $events, $bottom_banner, $pagination, $event_
     echo '<h3 class="section-title green">Upcoming events</h3>';
     obj_do_cx_events_list_filter( $events );
     obj_do_cx_events_list( $events );
-    obj_do_cx_event_bottom_banner_output( $bottom_banner );
+    obj_do_cx_single_event( $event_list_deets );
+//    obj_do_cx_event_bottom_banner_output( $bottom_banner );
     obj_do_cx_events_list_pagination( $pagination );
 }
 
@@ -147,6 +148,16 @@ function obj_do_cx_event_bottom_banner_output( $bottom_banner ) {
     </div>
     <?php endif; ?>
     <?php
+}
+function obj_do_cx_single_event( $home_event_details ){
+    
+    $single_details = $home_event_details['single_cx_event'];
+    
+    if ( array_key_exists( 'front_home_event_details', $single_details ) && ! empty( $single_details['front_home_event_details'] ) ) {
+        echo '<div class="home_event_miss" style="background-image: url('.$single_details['front_home_event_image']['url'].')">';
+        echo $single_details['front_home_event_details'];
+        echo "</div>";
+    }
 }
 
 function obj_do_cx_events_list_pagination( $pagination ) {

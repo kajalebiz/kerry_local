@@ -94,7 +94,7 @@ function _evt_helper_get_event_dates( $event_id, $is_sponsored_area = false, $ev
 
 	$format_start_date = date_i18n( sc_get_date_format(), $start_date );
     $format_end_date   = date_i18n( sc_get_date_format(), $end_date );
-    $month_format      = $is_sponsored_area ? 'F' : 'M';
+    $month_format      = $is_sponsored_area ? 'F' : 'M.';
 
 	if ( $format_end_date !== $format_start_date ) {
 		$start_year  = date_i18n( 'Y', $end_date );

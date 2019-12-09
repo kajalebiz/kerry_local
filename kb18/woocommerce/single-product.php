@@ -86,8 +86,8 @@ function obj_single_resource_content() {
 	$sub_type     = get_field( 'subscribe_type' );
 	$the_file     = get_field( 'download_file' );
 	$form_title   = get_field( 'download_form_title' );
-	$social_icons = get_field( 'want_social_icons' );
-	$cookie_param = '?mcconf=20gy834238y42348g234u394j3';
+	$want_social_icons   = get_field( 'want_social_icons' );
+        $cookie_param = '?mcconf=20gy834238y42348g234u394j3';
 	$perm_link    = $perm . $cookie_param;
 	$form_id      = 2;
 
@@ -136,16 +136,16 @@ function obj_single_resource_content() {
 						<?php endif; ?>
 		        	</div>
 		        	<div>
-                                <div class="resource-banner__form-wrap">
+		        		<div class="resource-banner__form-wrap">
 			               <h3 class="resource-banner__form-title"><?php echo $form_title; ?></h3>
 			               <?php woocommerce_template_single_price(); ?>
 			               <?php woocommerce_simple_add_to_cart(); ?>
-                                </div>
-                                <?php if( $social_icons ){ ?>    
-			            <div class="tar resource__sharing">
-                                        <?php echo do_shortcode( '[ssba]' ); ?>
 			            </div>
-                                <?php } ?>
+                                    <?php if( $want_social_icons == TRUE ) { ?>
+                                        <div class="tar resource__sharing">
+                                            <?php echo do_shortcode( '[ssba]' ); ?>
+                                        </div>
+                                    <?php } ?>  
 		        	</div>
 		        </div>
 		    </div>

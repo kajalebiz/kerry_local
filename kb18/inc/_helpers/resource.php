@@ -48,6 +48,8 @@ function obj_do_resource_block( $r = null ) {
 	$title = $r->post_title;
 	$perm  = get_permalink( $id );
 	$blurb = get_field( 'blurb', $id );
+        $redirect_link = get_field('page_redirect_link',$id );
+        $perm = !empty($redirect_link) ? $redirect_link : $perm;
 	$thumb = get_the_post_thumbnail_url( $id, 'medium_large' );
 	?>
 	<div class="resource-block__outer">
@@ -58,7 +60,7 @@ function obj_do_resource_block( $r = null ) {
 				<?php if ( ! empty( $blurb ) ) : ?>
 					<div class="resource-block__blurb"><?php echo $blurb; ?></div>
 				<?php endif; ?>
-				<div class="fake-button">Download</div>
+				<div class="fake-button">Learn More</div>
 			</div>
 		</a>
 	</div>

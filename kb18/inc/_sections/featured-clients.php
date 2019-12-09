@@ -21,7 +21,7 @@ function obj_do_featured_clients( $fc_section = null ) {
 		$bottom_image_class = 'no-bottom-image';
 	}
 
-	echo "<div class='wrap {$bottom_image_class}'>";
+	echo "<div class=' tesst wrap {$bottom_image_class}'>";
 	if ( ! empty( $sec_title ) ) {
 		echo "<h2 class='section-title'>";
 		echo $sec_title;

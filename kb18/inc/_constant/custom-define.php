@@ -38,6 +38,12 @@
     if( !defined( 'HUBBB_ENTERPRISE_FIELD_ID' ) ) {
         define( 'HUBBB_ENTERPRISE_FIELD_ID', 'field_5d78a416a3539' );
     }
+    if( !defined( 'HUBBB_ENTERPRISE_FIELD_FLAG_ID' ) ) {
+        define( 'HUBBB_ENTERPRISE_FIELD_FLAG_ID', 'field_5dea4adaad484' );
+    }
+    if( !defined( 'HUBBB_ENTERPRISE_FIELD_ORDER_ID' ) ) {
+        define( 'HUBBB_ENTERPRISE_FIELD_ORDER_ID', 'field_5dea4a9aad482' );
+    }
     if( !defined( 'HUBBB_BASIC_FGROUP_ID' ) ) {
         define( 'HUBBB_BASIC_FGROUP_ID', 7957 );
     }
@@ -46,4 +52,10 @@
     }
     if( !defined( 'HUBBB_ENTERPRISE_FGROUP_ID' ) ) {
         define( 'HUBBB_ENTERPRISE_FGROUP_ID', 7963 );
+    }
+    if( !defined( 'HUBBB_COUPON_SAVE50' ) ) {
+        define( 'HUBBB_COUPON_SAVE50', 9313 );
+    }
+    if( !defined( 'HUBBB_COUPON_365FREE' ) ) {
+        define( 'HUBBB_COUPON_365FREE', 00000 );
     }

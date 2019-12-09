@@ -44,13 +44,18 @@
 				<?php while ( $products->have_posts() ) : $products->the_post(); ?>
 
 					<?php $product_cats = get_the_terms(get_the_ID(), 'product_cat'); ?>
-
+                                         <?php 
+                                            if(class_exists('acf') ){
+                                                $redirect_link = get_field('page_redirect_link',get_the_ID());
+                                                $redirect_link = !empty($redirect_link) ? $redirect_link : get_the_permalink();
+                                            }
+                                         ?>   
 					<?php $product_cats_slugs = array_map( function($cat) {
 						return 'category-' . $cat->slug;
 					}, $product_cats ); ?>
 					
 					<div class="resources-grid__item-wrapper <?php echo implode(' ', $product_cats_slugs); ?>">
-						<a href="<?php the_permalink(); ?>" class="resources-grid__item">
+						<a href="<?php echo $redirect_link; ?>" class="resources-grid__item">
 							<?php $thumb = get_the_post_thumbnail_url(); ?>
 							<div class="resources-grid__item-thumb lazy" data-src="<?php echo $thumb; ?>"></div>
 							<div class="resources-grid__item-inner">

@@ -9,9 +9,9 @@ function objectiv_page_banner() {
 		is_singular( 'staff' ),
 		is_page('cart'),
 		is_page('checkout'),
-		is_page('reset-password'),
+		is_page('reset-pass'),
 		is_archive('product')
-	);
+	);       
 
 	$no_exclusion_conditions_met = ! in_array( true, $exclusion_conditions );
 

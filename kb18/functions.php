@@ -376,6 +376,20 @@ if ( function_exists( 'acf_add_options_page' ) ) {
 	);
 }
 
+// Add Email Setting Page
+if ( function_exists( 'acf_add_options_page' ) ) {
+	acf_add_options_page(
+		array(
+			'page_title'  => 'Email Settings',
+			'menu_title'  => 'Email Settings',
+			'menu_slug'   => 'kb-email-settings',
+			'parent_slug' => 'theme-general-settings',
+			'capability'  => 'edit_posts',
+			'redirect'    => false,
+		)
+	);
+}
+
 // Email obfuscation
 function objectiv_hide_email( $email ) {
 
@@ -1198,14 +1212,31 @@ add_action( 'wp', 'kb_free_checkout_fields' );
 /**
 * Prepend the mobile menu with the Cart if quantity greater than 0
 */
-add_filter('wp_nav_menu_items', 'add_cart_link_to_mobile_menu', 10, 2);
+//add_filter('wp_nav_menu_items', 'add_cart_link_to_mobile_menu', 10, 2);
 function add_cart_link_to_mobile_menu($items, $args){
-	if ( class_exists( 'WooCommerce' ) &&  WC()->cart->get_cart_contents_count() > 0 ) {
+	if ( class_exists( 'WooCommerce' )  ) {
+            
+            if ( is_user_logged_in() ) {
+                    $items = '<li id="menu-item" class="menu-item "><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id')).'" itemprop="url">My Account</a></li>'. $items;
+            }
 	    if( $args->theme_location == 'mobile-menu' ){
 			$items_in_cart =  WC()->cart->get_cart_contents_count();
 	        $items = '<li><a title="Cart" href=' . WC()->cart->get_cart_url() . '><span class="icon-cart icon-cart--mobile"></span>'. $items_in_cart .' item(s) (<span class="icon-cart__amount">$' . WC()->cart->get_cart_contents_total() . '</span>)</a></li>' . $items;
 	    }
+
 	}
+
+    return $items;
+}
+
+//add_filter('wp_nav_menu_items', 'add_cart_link_to_mobile_menu2', 9, 2);
+function add_cart_link_to_mobile_menu2($items, $args){
+            if ( is_user_logged_in() ) {
+                if( $args->theme_location == 'mobile-menu' ){
+                    $items = '<li id="menu-item-0" class="menu-item "><a href="'.get_permalink( get_option('woocommerce_myaccount_page_id')).'" itemprop="url">My Account</a></li>'. $items;
+                }
+            } 
+
     return $items;
 }
 
@@ -1296,14 +1327,12 @@ function wc_add_css_to_emails( $css ) {
 }
 
 function kerry_check_ACF_permissions_button($post) {
-
-    ?><script type="text/javascript">
+    ?>      
+    <script type="text/javascript">
         jQuery('a[data-event="add-row"]').remove();
         jQuery('a[data-event="remove-row"]').remove();
     </script><?php
-	
 }
-
 //add_action ( 'admin_footer', 'kerry_check_ACF_permissions_button' );
 add_action ( 'wp_footer', 'kerry_check_ACF_permissions_button' );
 
@@ -1353,27 +1382,44 @@ function kerry_my_acf_validate_value( $valid, $value, $field, $input ){
 		
 }
 
-add_filter('acf/validate_value/name=kerrybodine_sub_enterprise_users', 'kerry_my_acf_email_validate_value', 10, 4);
+add_filter('acf/validate_value/name=kerrybodine_sub_enterprise_users', 'kerry_my_acf_email_validate_value', 20, 4);
 
 function kerry_my_acf_email_validate_value( $valid, $value, $field, $input ){
     
     if( !$valid ) {		
         return $valid;		
     }
-
     $user_email = array();
+    $order_mail = $_POST['acf'][HUBBB_ENTERPRISE_FIELD_ORDER_ID];    
+    foreach($value as $user_val) { 
     
-    foreach($value as $user_val) {
-        $user_email[] = $user_val[HUBBB_ENTERPRISE_FIELD_ID];        
+        
+        if( $user_val[HUBBB_ENTERPRISE_FIELD_FLAG_ID] == 'sent' ){
+                $user_email[] = $user_val[HUBBB_ENTERPRISE_FIELD_ID];    
     }
-
+    }  
+    /*
+     * other emails 
+     */
+    if( !empty( $user_email ) ){
     foreach($user_email as $user_email_va){
+            $user = get_user_by( 'email', $user_email_va );
+            if( !empty( $user->ID ) ) {
+                $memberships = wc_memberships_get_user_active_memberships( $user->ID );
+                if( !empty( $memberships ) ) {
+                    $valid = 'The email address '.$user_email_va.' already has access.';
+                    break;
+                } 
+            } else {
         if ( email_exists( $user_email_va ) ) {
-            $valid = 'Email Address Already Taken';
+                    $valid = $user_email_va.' Email Address Already Taken';
+                    break;
         }
     }		
+        }
+    }
+  
     return $valid;
-		
 }
 
 add_filter('acf/validate_value/name=kerrybodine_sub_starter_users', 'kerry_user_acf_validate_value', 10, 4);
@@ -1387,11 +1433,13 @@ function kerry_user_acf_validate_value( $valid, $value, $field, $input ){
     $user_email = array();
     
     foreach($value as $user_val) {
-        $user_email[] = $user_val[HUBBB_BASIC_FIELD_ID];        
+        if( !empty( $user_val[HUBBB_BASIC_FIELD_ID] ) ){
+            $user_email[] = $user_val[HUBBB_BASIC_FIELD_ID];
+    }
     }
     
     if(array_has_dupes($user_email) == true) {
-        $valid = "Add Unique Email in each field. ";
+        $valid = "Each subscriber email address must be unique.";
     }
     
     return $valid;
@@ -1410,11 +1458,13 @@ function kerry_my_email_validate_value2( $valid, $value, $field, $input ){
 
     
     foreach($value as $user_val) {
-        $user_email[] = $user_val[HUBBB_ADVANCE_FIELD_ID];        
+        if( !empty( $user_val[HUBBB_ADVANCE_FIELD_ID] ) ){
+            $user_email[] = $user_val[HUBBB_ADVANCE_FIELD_ID];
+    }
     }
     
     if(array_has_dupes($user_email) == true) {
-        $valid = "Add Unique Email in each field. ";
+        $valid = "Each subscriber email address must be unique. ";
     }
     
     return $valid;
@@ -1433,11 +1483,13 @@ function kerry_my_email_validate_value3( $valid, $value, $field, $input ){
 
     
     foreach($value as $user_val) {
-        $user_email[] = $user_val[HUBBB_ENTERPRISE_FIELD_ID];        
+        if( !empty( $user_val[HUBBB_ENTERPRISE_FIELD_ID] ) ){
+            $user_email[] = $user_val[HUBBB_ENTERPRISE_FIELD_ID];        
+    }
     }
     
     if(array_has_dupes($user_email) == true) {
-        $valid = "Add Unique Email in each field. ";
+        $valid = "Each subscriber email address must be unique. ";
     }
     
     return $valid;
@@ -1470,19 +1522,22 @@ function password_generate($chars)
             foreach($starterusers as $users_val){
                 $user_email = $users_val[HUBBB_BASIC_FIELD_ID];
 
-                $pass_s       = password_generate(12);
+                $email_id_encrypted     = my_simple_crypt( $user_email, 'e' );
+                $act_key                = site_url().'/activate?key=S$'.$email_id_encrypted."&orderid=".$post_id;
 
-                $result_s     = wp_create_user( $user_email, $pass_s , $user_email );
+//                $pass_s       = password_generate(12);
+//
+//                $result_s     = wp_create_user( $user_email, $pass_s , $user_email );
+//
+//                $user_membership = wc_memberships_create_user_membership( array(
+//                                            'plan_id'    => (int) HUBBB_USE_CASE_BASIC_PLAN,
+//                                            'user_id'    => (int) $result_s,
+//                                            'product_id' => (int) HUBBB_BASIC_PRODUCT,
+//                                            'order_id'   => (int) $post_id,
+//                                    ), 'create' );
 
-                $user_membership = wc_memberships_create_user_membership( array(
-                                            'plan_id'    => (int) HUBBB_USE_CASE_BASIC_PLAN,
-                                            'user_id'    => (int) $result_s,
-                                            'product_id' => (int) HUBBB_BASIC_PRODUCT,
-                                            'order_id'   => (int) $post_id,
-                                    ), 'create' );
-
-                send_mail_new_user($result_s,$user_email,$pass_s);
-
+                send_mail_new_user($act_key,$user_email);
+               
             }
         
         }
@@ -1494,18 +1549,21 @@ function password_generate($chars)
             foreach($prousers as $users_val){
                 $user_email = $users_val[HUBBB_ADVANCE_FIELD_ID];
 
-                $pass_p             = password_generate(12);
+                $email_id_encrypted     = my_simple_crypt( $user_email, 'e' );
+                $act_key                = site_url().'/activate?key=P$'.$email_id_encrypted."&orderid=".$post_id;
 
-                $result_p           = wp_create_user( $user_email, $pass_p , $user_email );
+//                $pass_p             = password_generate(12);
+//
+//                $result_p           = wp_create_user( $user_email, $pass_p , $user_email );
+//
+//                $user_membership    = wc_memberships_create_user_membership( array(
+//                                            'plan_id'    => (int) HUBBB_USE_CASE_ADVANCE_PLAN,
+//                                            'user_id'    => (int) $result_p,
+//                                            'product_id' => (int) HUBBB_ADVANCE_PRODUCT,
+//                                            'order_id'   => (int) $post_id,
+//                                    ), 'create' );
 
-                $user_membership    = wc_memberships_create_user_membership( array(
-                                            'plan_id'    => (int) HUBBB_USE_CASE_ADVANCE_PLAN,
-                                            'user_id'    => (int) $result_p,
-                                            'product_id' => (int) HUBBB_ADVANCE_PRODUCT,
-                                            'order_id'   => (int) $post_id,
-                                    ), 'create' );
-
-                send_mail_new_user($result_p,$user_email,$pass_p);
+                send_mail_new_user($act_key,$user_email);
 
             }
         
@@ -1515,69 +1573,125 @@ function password_generate($chars)
 
         if($entusers) {
 
-            foreach($entusers as $users_val){
+            foreach($entusers as $users_key => $users_val){
                 
+                $order_id   = wc_get_order_id_by_order_key( $_GET['key'] );    
+                $order      = wc_get_order( $order_id );
+                $order_mail = $order->get_billing_email();
+
+
                 $user_email         = $users_val[HUBBB_ENTERPRISE_FIELD_ID];
+                $success_msg        = $users_val[HUBBB_ENTERPRISE_FIELD_FLAG_ID];                
+                $email_id_encrypted     = my_simple_crypt( $user_email, 'e' );
+                $act_key                = site_url().'/activate?key=E'.$email_id_encrypted."&orderid=".$post_id;
 
-                $pass_e             = password_generate(12);
+//                $pass_e             = password_generate(12);
+//
+//                $result_e           = wp_create_user( $user_email, $pass_e , $user_email );
+//
+//                $user_membership    = wc_memberships_create_user_membership( array(
+//                                            'plan_id'    => (int) HUBBB_USE_CASE_ENTERPRISE_PLAN,
+//                                            'user_id'    => (int) $result_e,
+//                                            'product_id' => (int) HUBBB_ENTERPRISE_PRODUCT,
+//                                            'order_id'   => (int) $post_id,
+//                                    ), 'create' );
+//                send_mail_new_user($act_key,$user_email);
+                if( $order_mail == $user_email  ){
+                    $row = array(
+                                'kerrybodine_sub_enterprise_send_success' => "admin",
+                            );
+                    update_row('kerrybodine_sub_enterprise_users', ($users_key + 1) , $row ,$post_id );
+//                    $user = get_user_by( 'email', $user_email );
+//                    $args = array( 
+//                            'status' => array( 'paused' ),
+//                    );
 
-                $result_e           = wp_create_user( $user_email, $pass_e , $user_email );
+//                    $paused_memberships     = wc_memberships_get_user_memberships( $user->ID, $args );
 
-                $user_membership    = wc_memberships_create_user_membership( array(
-                                            'plan_id'    => (int) HUBBB_USE_CASE_ENTERPRISE_PLAN,
-                                            'user_id'    => (int) $result_e,
-                                            'product_id' => (int) HUBBB_ENTERPRISE_PRODUCT,
-                                            'order_id'   => (int) $post_id,
-                                    ), 'create' );
-
-                send_mail_new_user($result_e,$user_email,$pass_e);
-
+                            send_mail_new_user($act_key,$user_email);
+//                    $paused_memberships_id  = wp_list_pluck( $paused_memberships, 'id' );
+//                    if(!empty( $paused_memberships_id )){
+//                        foreach ($paused_memberships_id as $key_id => $value_id) {
+//                            update_post_meta( $value_id, 'member_custom_active_flag', 'true' );
+//                            $status = 'wcm-active';
+//                            $update_args = array( 'ID' => $value_id, 'post_status' => $status );
+//                            wp_update_post($update_args);
+//                        }
+//                    }
+                }elseif( $success_msg === "sent" ){                   
+                    $row = array(
+                                'kerrybodine_sub_enterprise_send_success' => "sent success",
+                            );
+                    update_row('kerrybodine_sub_enterprise_users', ($users_key + 1) , $row ,$post_id );
+                    send_mail_new_user($act_key,$user_email);
             }
-        
         }
-        
     }
+ }
  }
  add_action('acf/save_post', 'kerry_sendMail', 20); 
 
-function send_mail_new_user($result,$useremail,$pass){
+function send_mail_new_user($link,$useremail){
     
     $body = "";
     $site = get_site_url();
-    if( is_wp_error( $result )){            
-        $body = $result->get_error_message();           
-    } else{            
-        $body = "<div class='mail_main' style='background-color: #F7F7F7;padding: 50px 0;box-sizing: border-box;'>
-	<div class='main_wrapper' style='width: 70%;margin: 0 auto;border: 2px solid #E2E2E2;border-radius: 5px;'>
-		<div class='header' style='background-color: #02A94F;padding: 50px;'>
-			<h4 style='margin-top: 0;color: #ffffff;font-size: 22px;line-height: normal;margin-bottom: 5px;'>Welcome to Bodine & Co</h4>
-			<h1 style='margin: 0;color: #ffffff;font-size: 45px;line-height: normal;'>Welcome to Kerry Bodine</h1>
+            
+    $body = '<html>
+            <head>
+                <title></title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            </head>
+            <body style="word-break: break-word;background-color: #FAFBFF; font-family: Open Sans, sans-serif; margin: 0;" >
+                <div style="word-break: break-word;background: #fafbff;padding: 100px 0px;">
+                    <div style="word-break: break-word;max-width: 600px;margin: 0px auto;">			
+                        <div style="margin-bottom: 15px;">
+                                <img src="'.get_stylesheet_directory_uri().'/assets/images/new-logo2.png" alt="kerrybodine logo">
 		</div>
-		<div class='body' style='padding: 30px 50px 50px 50px;background-color:#ffffff;'>
-			<p style='font-size: 18px;color: #58595b;margin-top: 0;'>Hi</p>
-			<p style='font-size: 18px;color: #58595b;margin-top: 0;'>Hello and welcome,</p>
-			<p style='font-size: 18px;color: #58595b;margin-top: 0;'>This email is to let you you know that you now have access to Journey Mapping Tools from Bodine & Col You either purchased access and created an account on your own or some wonderful person at your organization has purchased access for youl Either way, you now have a pass to view exclusive educational content and download Journey Mapping templates and resources. </p>
-			<p style='font-size: 18px;color: #58595b;margin: 0;'>The logistics:</p>
-			<p style='font-size: 18px;color: #58595b;margin: 0;'>Your username is <strong style='color:#02A94F;'><a href='mailto:$useremail' target='_blank' style='color: #02a94f;'>$useremail</a></strong></p>
-			<p style='font-size: 18px;color: #58595b;margin: 0;'>Your password is <strong style='color:#02A94F;'>$pass</strong></p>
-			<p style='font-size: 18px;color: #58595b;margin-top: 0;'>You can access your account to view ordes, change your password and more at <strong><a href='$site' target='_blank' style='color: #02a94f;'>$site</a></strong></p>
-			<p style='font-size: 18px;color: #58595b;margin: 0;'>Thanks for joining us and happy mapping!</p>
+                        <table style="table-layout: fixed;width: 100%;word-break: break-word;border: 1px solid #ECEFFC;background-color: #FFFFFF;    border-spacing: 0px;padding: 15px 32px;">	
+                            <tr style="word-break: break-word;">
+                                <td style="word-break: break-word;background-color:#ffffff;font-size:16px;color: #58595b;">
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">Hello!</p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">Your user account for the Bodine & Co. Journey Mapping Master Toolkit is waiting for you. Activate it by clicking the link below — then gain entry to all the guidance and tools you need to create effective journey maps for your organization. </p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin-bottom: 0px;margin:0px" >Click here to activate your account:</p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px"><a style="font-size:14px;color: #02a94f;text-decoration: underline; word-break: break-word;max-width: 530px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: block;margin-bottom: 32px;" href="'.$link.'">'.$link.'</a> </p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                    <p style="font-style: italic;color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;">Please be advised that by activating your Journey Mapping Master Toolkit license, you are agreeing to be bound by all of the provisions contained in the <a style="color: #02a94f;text-decoration: underline;" href="'. site_url().'/terms-conditions-kerry-bodine-co/">Terms and Conditions</a> and the <a style="color: #02a94f;text-decoration: underline;" href="'. site_url().'/privacy-policy/">Privacy Policy</a>.</p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                    <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">For assistance, please contact <a style="color: #02a94f;text-decoration: underline;" href="mailto:concierge@kerrybodine.com">concierge@kerrybodine.com</a>.</p>
+                                </td>
+                            </tr>
+                        </table>
 		</div>
 	</div>	
-</div><style type='text/css'>a{color:#02a94f;}</style>";
+            </body>
+            </html>';
+    $to         = $useremail;
+//    $subject    = 'Your Access to the Bodine & Co. Journey Mapping Master Toolkit is here!';
+    $subject    = 'Your access to the Journey Mapping Master Toolkit is here!';
+    $headers    = array('Content-Type: text/html; charset=UTF-8');
+    $headers[]  = 'From: "Kerry Bodine" <concierge@kerrybodine.com>';
+    $success    = wp_mail( $to, $subject, $body, $headers );
+    if($success){
+        global $wpdb;
+        $res = $wpdb->get_results( "SELECT user_email FROM user_activation_links", ARRAY_A );   
+        $email_exists   = in_array($useremail, wp_list_pluck($res,'user_email'));
+        if(!$email_exists){
+           insert_user_for_email_resend($useremail,$link);
     }
-    $to = $useremail;
-    $subject = 'You now have access to Bodine & Co Journey Mapping Tools';
-    $headers = array('Content-Type: text/html; charset=UTF-8');
-    $headers[] = 'From: "Kerry Bodine" <concierge@kerrybodine.com>';
-    wp_mail( $to, $subject, $body, $headers );
+    }
           
 }
 
   add_filter( 'woocommerce_registration_error_email_exists', 'filter_function_name', 10, 2 );
     function filter_function_name( $__, $email ){
             $accont_link = get_permalink( get_option('woocommerce_myaccount_page_id') );
-            $__ = "An account is already registered with your email address. Please <a href='$accont_link'>log in</a>";
+            $__ = "An account is already registered with your email address. Please <a href='".$accont_link."?redirect=checkout'>log in</a>";
             return $__;
     }
     
@@ -1586,6 +1700,7 @@ function send_mail_new_user($result,$useremail,$pass){
         $menu_links = array(
             get_option( 'woocommerce_myaccount_edit_account_endpoint', 'edit-account' ) =>  'My Account',
             get_option( 'woocommerce_myaccount_orders_endpoint', 'orders' )             =>  'Orders',
+            get_option( 'woocommerce_myaccount_subscriptions_endpoint', 'subscriptions' ) =>  'Subscriptions',
             get_option( 'woocommerce_myaccount_members_area_endpoint', 'members-area' ) =>  'Memberships',
             get_option( 'woocommerce_myaccount_downloads_endpoint', 'downloads' )       =>  'Downloads',
             get_option( 'woocommerce_myaccount_edit_address_endpoint', 'edit-address' ) =>  'Addresses',
@@ -1603,31 +1718,45 @@ function send_mail_new_user($result,$useremail,$pass){
 	$role = $roles[ $_REQUEST['role'] ];
         
 //        $activate_url = site_url()."/wp-activate.php?key=$key"; 
-        $email_id_encrypted             = my_simple_crypt( $user_email, 'e' );
-        $activate_url                   = site_url().'/activate?key=A$'.$email_id_encrypted;       
-      
-        $message = '<div style="background: #fafbff;padding: 100px 50px;">
-		<div style="max-width: 600px;margin: 0px auto;">			
-			<div style="margin-bottom: 15px;">
-				<img src="'.get_stylesheet_directory_uri().'/assets/images/new-logo2.png" alt="kerrybodine logo">
-			</div>
-			<table style="border: 1px solid #ECEFFC;background-color: #FFFFFF;    border-spacing: 0px;padding: 15px 32px;">	
-				<tr>
-					<td style="background-color:#ffffff;font-size:16px;color: #58595b;">
-						<p style="color: #58595b;">Hello!</p>
-		                <p style="color: #58595b;"></p>
-		                <p style="color: #58595b;">Your user account for the Bodine & Co. Journey Mapping Library is waiting for you. Activate it by clicking the link below — then access to all the guidance and tools you need to create effective journey maps for your organization. </p>
-						<p style="color: #58595b;">If you have any issues or questions, please contact <a style="color: #02a94f;text-decoration: underline;" href="mailto:concierge@kerrybodine.com">concierge@kerrybodine.com</a>.</p>
-						<p style="color: #58595b;"></p>
-						<p style="color:#58595b;margin-bottom: 0px;" >Click here to activate your account:</p>
-		                <p style="color:#58595b;margin-top: 0px;"><a style="color: #02a94f;text-decoration: underline; " href="'.$activate_url.'">'.$activate_url.'</a></p>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>';
-        
-        return $message;
+        $email_id_encrypted     = my_simple_crypt( $user_email, 'e' );
+        $activate_url           = site_url().'/activate?key=A$'.$email_id_encrypted;
+//        $activate_url = site_url()."/wp-activate.php?key=$key";  
+
+        $message = '<html>
+                        <head>
+                            <title></title>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+                            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                        </head>
+                        <body  style="word-break: break-word;background-color: #FAFBFF; font-family: Open Sans, sans-serif; margin: 0;" >
+                            <div style="word-break: break-word;background: #fafbff;padding: 100px 0px;">
+                                <div style="word-break: break-word;max-width: 600px;margin: 0px auto;">			
+                                    <div style="margin-bottom: 15px;">
+                                        <img src="'.get_stylesheet_directory_uri().'/assets/images/new-logo2.png" alt="kerrybodine logo">
+                                    </div>
+                                    <table style="table-layout: fixed;width: 100%;word-break: break-word;border: 1px solid #ECEFFC;background-color: #FFFFFF;border-spacing: 0px;padding: 15px 32px;">	
+                                        <tr style="word-break: break-word;">
+                                            <td style="word-break: break-word;background-color:#ffffff;font-size:16px;color: #58595b;">
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">Hello!</p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">Your user account for the Bodine & Co. Journey Mapping Master Toolkit is waiting for you. Activate it by clicking the link below — then gain entry to all the guidance and tools you need to create effective journey maps for your organization. </p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin-bottom: 0px;margin:0px" >Click here to activate your account : </p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px"><a style="font-size:14px;color: #02a94f;text-decoration: underline; word-break: break-word;max-width: 530px;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;display: block; " href="'.$activate_url.'">'.$activate_url.'</a> </p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                                <p style="font-style: italic;color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;">Please be advised that by activating your Journey Mapping Master Toolkit license, you are agreeing to be bound by all of the provisions contained in the <a style="color: #02a94f;text-decoration: underline;" href="'. site_url().'/terms-conditions-kerry-bodine-co/">Terms and Conditions</a> and the <a style="color: #02a94f;text-decoration: underline;" href="'. site_url().'/privacy-policy/">Privacy Policy</a>.</p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;"></p>
+                                                <p style="color: #58595b;font-size: 14px;line-height: 24px;text-align: left;font-family:open sans , sans-serif;margin:0px">For assistance, please contact <a style="color: #02a94f;text-decoration: underline;" href="mailto:concierge@kerrybodine.com">concierge@kerrybodine.com</a>.</p>
+                                            </td>
+                                        </tr> 
+                                    </table>
+                                </div>
+                            </div>
+                        </body>
+                    </html>';         
+        return $message; 
         
         
 }
@@ -1650,6 +1779,7 @@ add_filter( 'wpmu_welcome_user_notification', '__return_false' );
 	<?php
     }
     
+    //restrict plugin update.
     function stop_reset_plugin_updates( $value ) {
     unset( $value->response['frontend-reset-password/som-frontend-reset-password.php'] );
     return $value;
@@ -1740,7 +1870,7 @@ add_filter( 'wpmu_welcome_user_notification', '__return_false' );
 <p style="color: #58595b;">Due to recent updates in our platform and as an extra security measure we are requiring you to reset the password for the Bodine & Co. Journey Mapping Library account below.</p>
 <p style="color: #58595b;"><strong>###USERNAME###</strong></p>
 <p style="color: #58595b; margin-bottom: 0px;">To reset your password, please click this link:</p>
-<p style="color: #58595b; margin-top: 0px;"><a style="color: #02a94f;text-decoration: underline;" href="'.site_url().'/reset-password">https://kerrybodine.com/reset-password</a></p>
+<p style="color: #58595b; margin-top: 0px;"><a style="color: #02a94f;text-decoration: underline;" href="'.site_url().'/reset-password">'. site_url().'/reset-password</a></p>
 <p style="color: #58595b;">Thank you!</p>
 </td>
 </tr>
@@ -1822,7 +1952,8 @@ function custom_validation( $result, $value, $form, $field ) {
     return $result;
 }
 
-add_action( 'gform_after_submission_20', 'set_post_content', 10, 2 );
+
+add_action( 'gform_after_submission_21', 'set_post_content', 10, 2 );
 function set_post_content( $entry, $form ) {
     date_default_timezone_set("Asia/Kolkata");
     global $wpdb; 
@@ -1835,62 +1966,35 @@ function set_post_content( $entry, $form ) {
             $res = $wpdb->get_results( "SELECT activation_link FROM user_activation_links WHERE user_email = '$resend_email'", ARRAY_A );
             $link   = $res[0]['activation_link'];
             if(!empty($link)){
-                send_mail_new_user_admin($link, $resend_email);
+                send_mail_new_user($link, $resend_email);
             }       
         } 
     }
 }
-
-function send_mail_new_user_admin($link,$useremail){
-    
-    $body = "";
-    $site = get_site_url();
-            
-                $body = '<div style="background: #fafbff;padding: 100px 50px;">
-		<div style="max-width: 600px;margin: 0px auto;">			
-			<div style="margin-bottom: 15px;">
-				<img src="'.get_stylesheet_directory_uri().'/assets/images/new-logo2.png" alt="kerrybodine logo">
-			</div>
-			<table style="border: 1px solid #ECEFFC;background-color: #FFFFFF;    border-spacing: 0px;padding: 15px 32px;">	
-				<tr>
-					<td style="background-color:#ffffff;font-size:16px;color: #58595b;">
-						<p style="color: #58595b;">Hello!</p>
-		                <p style="color: #58595b;"></p>
-		                <p style="color: #58595b;">Your user account for the Bodine & Co. Journey Mapping Library is waiting for you. Activate it by clicking the link below — then access to all the guidance and tools you need to create effective journey maps for your organization. </p>
-						<p style="color: #58595b;">If you have any issues or questions, please contact <a style="color: #02a94f;text-decoration: underline;" href="mailto:concierge@kerrybodine.com">concierge@kerrybodine.com</a>.</p>
-						<p style="color: #58595b;"></p>
-						<p style="color:#58595b;margin-bottom: 0px;" >Click here to activate your account:</p>
-		                <p style="color:#58595b;margin-top: 0px;"><a style="color: #02a94f;text-decoration: underline; " href="'.$link.'">'.$link.'</a></p>
-					</td>
-				</tr>
-			</table>
-		</div>
-	</div>';
-
-    $to         = $useremail;
-    $subject    = 'You now have access to Bodine & Co Journey Mapping Tools';
-    $headers    = array('Content-Type: text/html; charset=UTF-8');
-    $headers[]  = 'From: "Kerry Bodine" <concierge@kerrybodine.com>';
-    wp_mail( $to, $subject, $body, $headers );
-//    if($success){
-//        global $wpdb;
-//        $res = $wpdb->get_results( "SELECT user_email FROM user_activation_links", ARRAY_A );   
-//        $email_exists   = in_array($useremail, wp_list_pluck($res,'user_email'));
-//        if(!$email_exists){
-//           insert_user_for_email_resend($useremail,$link);
-//        }
-//    }
-          
-}
-
 function woocommerce_get_settings_email_over($settings){
     $my_array = array();
     foreach ($settings as $settings_key => $settings_val){
+        if($settings_key == 6){
+            $settings_val['title'] = "External Sender";
+        }
         if($settings_key == 7 ){
             $my_array[] = array(
-					'title'             => __( '"Admin from" address', 'woocommerce' ),
+					'title'             => __( 'Internal Sender', 'woocommerce' ),
 					'desc'              => __( 'How the sender email appears in outgoing WooCommerce emails.', 'woocommerce' ),
 					'id'                => 'woocommerce_email_from_address_for_admin',
+					'type'              => 'email',
+					'custom_attributes' => array(
+						'multiple' => 'multiple',
+					),
+					'css'               => 'min-width:300px;',
+					'default'           => get_option( 'admin_email' ),
+					'autoload'          => false,
+					'desc_tip'          => true,
+				);
+             $my_array[] = array(
+					'title'             => __( 'Unimportant Internal Recipient', 'woocommerce' ),
+					'desc'              => __( 'How the receiver email appears in outgoing WooCommerce emails.', 'woocommerce' ),
+					'id'                => 'woocommerce_email_from_address_for_receiver',
 					'type'              => 'email',
 					'custom_attributes' => array(
 						'multiple' => 'multiple',
@@ -1922,3 +2026,593 @@ add_filter( 'woocommerce_email_from_address', function( $from_email, $wc_email )
         $from_email = $email;
     return $from_email;
 }, 10, 2 );
+
+function sv_conditional_email_recipient( $recipient, $order ) {
+    if(!is_admin()){
+        $receiver = get_option( 'woocommerce_email_from_address_for_receiver' );
+        $total = $order->data['total'];
+        if( $total <= 0 ) {
+            $recipient = $receiver;
+        }	
+    }
+	return $recipient;
+}
+add_action( 'woocommerce_email_recipient_new_order', 'sv_conditional_email_recipient', 10, 2 );
+add_action( 'woocommerce_email_recipient_cancelled_order', 'sv_conditional_email_recipient', 10, 2 );
+add_action( 'woocommerce_email_recipient_failed_order', 'sv_conditional_email_recipient', 10, 2 );
+
+add_filter( 'woocommerce_coupon_error', 'filter_function_name_112', 10, 3 );
+function filter_function_name_112( $err, $err_code, $instance ){  
+    $coupon_code = $instance->get_code();
+    $coupon_code = '&ldquo;'.$coupon_code.'&rdquo;';
+//    $coupon_code = strtoupper( $coupon_code );
+    if( $instance->id === HUBBB_COUPON_SAVE50  ) {
+        $product_cart_id = WC()->cart->generate_cart_id( HUBBB_ENTERPRISE_PRODUCT );
+        $in_cart = WC()->cart->find_product_in_cart( $product_cart_id ); 
+        if ( $in_cart ) { 
+            return 'For promo code '.$coupon_code.', you must purchase at least 15 licenses.';
+        }else{
+            return 'Sorry, this coupon is not applicable to selected products.';
+        }   
+    }else{
+        return $err;
+    }
+}
+add_filter("woocommerce_coupon_is_valid","plugin_coupon_validation",100,2);
+function plugin_coupon_validation($result,$coupon) {
+    
+    global $woocommerce;    
+    if( HUBBB_COUPON_SAVE50 === $coupon->id ) {
+        $qty = 0;
+        foreach ( WC()->cart->get_cart() as $cart_item ) {
+            if($cart_item['product_id'] == HUBBB_ENTERPRISE_PRODUCT ){
+                $qty =  $cart_item['quantity'];
+                break; // stop the loop if product is found
+            }
+        }
+        if( $qty < 15 ){
+            return FALSE;
+        }else{
+            return true; 
+        }
+    }
+ return true; 
+}
+
+add_filter('woocommerce_coupon_message', 'sb_woocommerce_coupon_message', 10, 3);
+function sb_woocommerce_coupon_message($msg, $msg_code, $coupon_obj) {
+    if ($msg_code == WC_Coupon::WC_COUPON_SUCCESS) {
+        if ( $coupon_obj->id === HUBBB_COUPON_365FREE ) {
+            $msg = __( '"ONE FREE YEAR" Coupon code applied successfully.', 'woocommerce' );
+        }
+    }     
+    return $msg;
+}
+
+//add_filter("wp_insert_post_data", "my_func", 10, 2);
+function my_func($data, $postarr){
+    $newEndingDate = date("Y-m-d", strtotime(date("Y-m-d", strtotime($postarr['end'])) . " + 1 year"));
+    return $data;
+}
+
+add_action( 'woocommerce_review_order_before_submit', 'bbloomer_add_checkout_privacy_policy', 9 );
+function bbloomer_add_checkout_privacy_policy() {
+    if(WC()->cart->total != 0){    
+       woocommerce_form_field( 'subscription_info', array(
+          'type'          => 'checkbox',
+          'class'         => array('form-row privacy'),
+          'label_class'   => array('woocommerce-form__label woocommerce-form__label-for-checkbox checkbox'),
+          'input_class'   => array('woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'),
+          'required'      => true,
+          'label'         => '<b>Subscription Information:</b> By checking the box and clicking Place Order, you acknowledge that your Bodine & Co. membership will automatically renew after one year at the current full price unless cancelled prior to the renewal date, as described in our <a target="_black" href="'.site_url().'/terms-conditions-kerry-bodine-co/">Terms & Conditions.</a>',
+       )); 
+    }
+    woocommerce_form_field( 'privacy_policy', array(
+       'type'          => 'checkbox',
+       'class'         => array('form-row privacy'),
+       'label_class'   => array('woocommerce-form__label woocommerce-form__label-for-checkbox checkbox'),
+       'input_class'   => array('woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'),
+       'required'      => true,
+       'label'         => '<b>Your Personal Data:</b> By checking the box, you are granting Bodine & Co. permission to use your personal data to process your order, support your experience throughout this website, and for other purposes described in our <a href="'.site_url().'/privacy-policy">Privacy Policy.</a>',
+    )); 
+}
+   
+add_action( 'woocommerce_checkout_process', 'bbloomer_not_approved_privacy' );
+function bbloomer_not_approved_privacy() {
+    if ( ! (int) isset( $_POST['privacy_policy'] ) ) {
+        wc_add_notice( __( 'Please acknowledge the Privacy Policy' ), 'error' );
+    }
+    if(WC()->cart->total != 0){  
+        if ( ! (int) isset( $_POST['subscription_info'] ) ) {
+            wc_add_notice( __( 'Please acknowledge the Subscription' ), 'error' );
+        }
+    }  
+}
+
+//remove "Have a coupon? Click here to enter your code" message from the top of the checkout page
+function hide_coupon_field_on_checkout( $enabled ) {
+    if ( is_checkout() ) {
+        $enabled = false;
+    }
+    return $enabled;
+}
+add_filter( 'woocommerce_coupons_enabled', 'hide_coupon_field_on_checkout' );
+
+add_filter( 'woocommerce_checkout_fields' , 'custom_remove_woo_checkout_fields' );
+ 
+function custom_remove_woo_checkout_fields( $fields ) {
+
+    // remove billing fields
+    
+    unset($fields['billing']['billing_address_1']);
+    unset($fields['billing']['billing_address_2']);
+    unset($fields['billing']['billing_city']);
+    unset($fields['billing']['billing_postcode']);
+    unset($fields['billing']['billing_country']);
+    unset($fields['billing']['billing_state']);
+    unset($fields['billing']['billing_phone']);
+   
+    // remove shipping fields 
+    unset($fields['shipping']['shipping_first_name']);    
+    unset($fields['shipping']['shipping_last_name']);  
+    unset($fields['shipping']['shipping_company']);
+    unset($fields['shipping']['shipping_address_1']);
+    unset($fields['shipping']['shipping_address_2']);
+    unset($fields['shipping']['shipping_city']);
+    unset($fields['shipping']['shipping_postcode']);
+    unset($fields['shipping']['shipping_country']);
+    unset($fields['shipping']['shipping_state']);
+    
+    // remove order comment fields
+    unset($fields['order']['order_comments']);
+    
+    return $fields;
+}
+
+
+add_shortcode('year_sale_popup','fun_year_sale_popup');
+function fun_year_sale_popup(){
+    $section_header = get_field( 'section_header','option' );
+    $section_id = get_field( 'end_section_id','option' );
+    $coupon_repeater = get_field( 'coupon_repeater','option' );
+    ?>
+        <section class="end_sale end_sale_popup">
+            <div class="wrap" id="<?php echo $section_id; ?>">
+                <?php if( !empty( $section_header ) ) { ?>
+                    <div class="sell_title">
+                        <?php echo $section_header; ?>
+                    </div>
+                <?php } ?>
+                <?php if( !empty( $coupon_repeater ) ) { ?>
+                    <div class="offer_bx">
+                        <?php foreach( $coupon_repeater as $coupon_key => $coupon_val ){
+                                $coupon         = $coupon_val['choose_coupon'];
+                                $coupon_text    = $coupon_val['coupon_available_text'];
+                                $coupon_use_code    = $coupon_val['popup_coupon_use_code_text'];
+                                $learn_more_link    = $coupon_val['popup_coupon_learn_more_link'];
+                                $top_content    = $coupon_val['coupon_top_content'];
+                                $counter        = $coupon->usage_limit - $coupon->usage_count;
+                                $usage          = $coupon->usage_limit;
+                        ?>
+                            <div class="content_bx">
+                                <div class="bx_group">
+                                    <?php if( !empty( $top_content ) ) { echo $top_content; } ?>
+                                    <h5 class="btn"> <?php echo $coupon->post_title; ?></h5>
+                                    <?php if( !empty( $coupon_use_code ) ){ ?>
+                                        <span> <?php echo $coupon_use_code; ?> </span>
+                                    <?php } ?>
+                                </div>
+                                <?php if( !empty( $coupon_text ) ){ ?>
+                                    <span> <?php echo $coupon_text; ?> </span>
+                                <?php } ?>
+                                <?php if( !empty( $learn_more_link['title'] ) && !empty( $learn_more_link['url'] ) ){ ?>
+                                    <a class="popup-learn-link" href="<?php echo $learn_more_link['url'];?>" target="<?php echo $learn_more_link['target'];?>"> <?php echo $learn_more_link['title']; ?> </a>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                <?php } ?>
+            </div>
+        </section>
+    <?php
+}
+
+add_action( 'genesis_before_header', 'wpsites_before_header' );
+function wpsites_before_header() {
+    if(class_exists('acf')){
+        $page_restrict      = get_field('choose_page_restrict_show_bar','option');
+        $bar_meta           = get_field('top_bar_meta','option');
+        $bar_cta            = get_field('top_bar_button_link','option');
+        
+    }
+        if(!in_array(get_the_ID(),$page_restrict)){ 
+?>       
+        <div class="site_above_header"><?php echo $bar_meta; ?> <a class="site_above_header_cta" href="<?php echo $bar_cta['url']; ?>" target="<?php echo $bar_cta['target']; ?>"><?php echo $bar_cta['title']; ?></a></div>
+<?php
+       }
+}
+
+add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+
+//woocommerce subscription price modify
+add_filter( 'woocommerce_subscriptions_product_price_string', 'subscriptions_custom_price_string', 20, 3 );
+function subscriptions_custom_price_string( $price_string, $product, $args ) {
+    $price_string = $args['price'];
+    return $price_string;
+}
+
+add_filter('woocommerce_email_subject_customer_completed_order', 'fun_change_admin_email_subject_complete_oreder', 1, 2);
+function fun_change_admin_email_subject_complete_oreder( $subject, $order ) {
+    global $woocommerce;
+    $order1         = wc_get_order( $order->id);
+    $flag           = false;
+    $order_items    = $order->get_items();
+    foreach ($order_items as $item_id => $item_data) {
+        $product = $item_data->get_product();
+        $item_total = $item_data->get_total(); 
+        if( $item_total <= 0 ) {
+            $flag = true;
+        } 
+    }
+    $total_item = count($order->get_items());
+    $total  = $order1->get_total();
+    if( $total_item > 1 ) {
+        $is_are = 'are';
+        $s_nots = 's';
+    } else {
+        $is_are = 'is';
+        $s_nots = '';
+    }
+    if( $total <= 0 ) { 
+        $subject = 'Your download'. $s_nots .' from Bodine & Co. '.$is_are.' here!';
+    } else if( $flag ) { 
+//        $subject = 'Your materials from Bodine & Co. are here!';
+        $subject = 'It’s time to set up your Bodine & Co. subscription';
+    } else { 
+        $subject = 'It’s time to set up your Bodine & Co. subscription'.$s_nots.'!';
+    } 
+    return $subject; 
+}
+
+add_filter('woocommerce_email_subject_customer_new_account', 'fun_change_admin_email_subject_new_account', 1, 2);
+function fun_change_admin_email_subject_new_account( $subject, $order ) {
+    $subject = 'Your Bodine & Co. account has been created';
+    return $subject;
+}
+
+function get_combo_order( $order ) {
+    $order1         = wc_get_order( $order->id);
+    $flag           = false;
+    $order_items    = $order->get_items();
+    foreach ($order_items as $item_id => $item_data) {
+        $product = $item_data->get_product();
+        $item_total = $item_data->get_total(); 
+        if( $item_total <= 0 ) {
+            $flag = true;
+        } 
+    }
+    return $flag;
+}
+//add_action('woocommerce_after_add_to_cart_button','cmk_additional_button');
+function cmk_additional_button() {
+    $productID = get_the_ID(); ?>
+    <div class="test" id="consolPopup" style="display: none">
+        <?php echo $productID;?>
+    </div>
+<?php }
+
+add_action( 'woocommerce_checkout_terms_and_conditions', 'action_function_name_5154' );
+function action_function_name_5154(){
+    global $woocommerce;
+    $cart_total = $woocommerce->cart->total;
+    $items  = $woocommerce->cart->get_cart();
+    $flag   = false;
+    foreach($items as $item => $values) { 
+        $_product =  wc_get_product( $values['data']->get_id()); 
+        $price = get_post_meta($values['product_id'] , '_price', true);
+        if( $price <=  0 ) {
+            $flag = true;
+        }
+    } 
+    if( $cart_total <= 0 ) { 
+        echo "<div class='woocommerce-privacy-policy-text'><p>By downloading this resource, you are opting in to receive insights &amp; invites from Kerry Bodine &amp; Co.</p></div>";
+    } else if( $flag ) {
+        echo "<div class='woocommerce-privacy-policy-text'><p>By downloading these resources, you are opting in to receive insights &amp; invites from Kerry Bodine &amp; Co.</p></div>";
+    } else {
+        echo "<div class='woocommerce-privacy-policy-text'><p>in1</p></div>";
+    }
+}
+
+function jp_woocommerce_get_shop_page_permalink( $link ) {
+    $resource_link = get_field('resources_page_link','option');
+    $link = $resource_link;
+    return $link;
+}
+add_filter( 'woocommerce_get_shop_page_permalink', 'jp_woocommerce_get_shop_page_permalink');
+
+add_filter( 'woocommerce_coupon_discount_amount_html', 'fun_woocommerce_coupon_discount_amount_html',10,2 );
+function fun_woocommerce_coupon_discount_amount_html(  $discount_amount_html, $coupon  ) {
+    if( $coupon->get_code() == '365free' ) {
+        $discount_amount_html = ' ';
+        return $discount_amount_html;
+    }
+    return $discount_amount_html;
+}
+function fun_filter_woocommerce_cart_item_thumbnail( $product_get_image, $cart_item, $cart_item_key ) { 
+    $product_ids = $cart_item['product_id'];
+    $image_url =  get_the_post_thumbnail_url($product_ids);
+    return '<img src="'.$image_url.'">'; 
+}; 
+add_filter( 'woocommerce_cart_item_thumbnail', 'fun_filter_woocommerce_cart_item_thumbnail', 10, 3 );
+
+add_action( 'woocommerce_order_status_completed', 'fun_after_wc_order_completed' );
+function fun_after_wc_order_completed( $order_id ) {
+    
+    //if coupon 365 than increase 1 year in membership + subscription too
+    if( !empty( $order_id ) ){
+        $subscriptions_ids = wcs_get_subscriptions_for_order( (int) $order_id ); 
+        if(!empty( $subscriptions_ids )){
+            foreach( $subscriptions_ids as $subscription_id => $subscription_obj ){
+                if((int) $order_id ===  (int) $subscription_obj->data['parent_id']){
+                    $order      = new WC_Order( $order_id );
+                    $order_mail = $order->get_billing_email();
+                    $the_user = get_user_by('email', $order_mail);
+                    $users_memberships_ids = '';
+                    if( $the_user->ID ){
+                        $users_memberships     = wc_memberships_get_user_memberships( $the_user->ID );                        
+                        $users_memberships_ids = wp_list_pluck( $users_memberships, 'id' );
+                    }
+//                    $order = wc_get_order( $order_id );
+                    if( !empty($order->get_used_coupons()) ){
+                        foreach( $order->get_used_coupons() as $coupon_code ){       
+                            if($coupon_code == '365free'){
+                                $sub_end_date       =   get_post_meta((int) $subscription_obj->id,'_schedule_end',true);
+                                $free365_flag       =   get_post_meta((int) $subscription_obj->id,'365free_applied_flag',true);                                
+                                if( !empty( $users_memberships_ids ) ){
+                                    foreach ( $users_memberships_ids as $ids_key => $ids_value ){
+                                        $mem_end_date   =   get_post_meta((int) $ids_value,'_end_date',true);
+//                                        if(date('m/d/Y' , strtotime($sub_end_date)) != date('m/d/Y' , strtotime($mem_end_date)) ){
+                                        if( empty( $free365_flag ) ){
+                                            $newEndingDate  =   date("Y-m-d H:i:s", strtotime(date("Y-m-d H:i:s", strtotime($sub_end_date)) . " + 1 year"));
+                                            update_post_meta((int) $subscription_obj->id,'_schedule_end',$newEndingDate);
+//                                            update_post_meta((int) $subscription_obj->id,'_schedule_next_payment',$newEndingDate);
+                                            update_post_meta((int) $ids_value,'_end_date',$newEndingDate);
+                                            update_post_meta((int) $subscription_obj->id,'365free_applied_flag','applied');
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } 
+                    
+                    if( !empty( $users_memberships_ids ) ){
+                        foreach ( $users_memberships_ids as $ids_key => $ids_value ){
+                            //update_post_meta((int) $ids_value,'_subscription_id',(int) $subscription_obj->id);
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
+}
+add_filter( 'wcs_my_account_redirect_to_single_subscription', false );
+add_filter('woocommerce_login_redirect', 'wc_login_redirect');
+ 
+function wc_login_redirect( $redirect_to ) {
+    $previous_url = $_GET['redirect'];
+    $cart_page_url = wc_get_cart_url();
+    if( $previous_url == 'cart' ) {
+        $redirect_to = $cart_page_url;
+    }  else if( $previous_url == 'checkout' ) {
+        $redirect_to = wc_get_checkout_url();
+    } elseif ( $redirect_to == "/my-account/subscriptions/" ) {
+        $redirect_to = $redirect_to;
+    }else {
+        $redirect_to = esc_url( wc_get_account_endpoint_url( 'edit-account' ) );
+    }
+    return $redirect_to;
+}
+
+function filter_woocommerce_coupon_error( $err, $err_code, $instance ) { 
+    $coupon_code = $instance->get_code();
+    $coupon_code = '&ldquo;'.$coupon_code.'&rdquo;';
+//    $coupon_code = strtoupper( $coupon_code );
+    if( $err_code == 106 ){
+        $err = 'You’ve already used promo code '.$coupon_code.', and it can only be applied once per purchaser.';
+    }  
+    if( $err_code == 105 ) {
+        $err = sprintf( __( 'Promo code %s does not exist. Please note that promo codes are case sensitive.', 'woocommerce' ), $coupon_code );
+    }
+    if( $err_code == 101 ) {
+        $err = sprintf( __( 'Sorry, the the promo code %s is invalid. It has now been removed from your order.', 'woocommerce' ), $coupon_code );
+    }
+    return $err; 
+}
+add_filter( 'woocommerce_coupon_error', 'filter_woocommerce_coupon_error', 10, 3 ); 
+
+function filter_woocommerce_coupon_message( $msg, $msg_code, $instance ) { 
+    $coupon_code = $instance->get_code();
+    $coupon_code = '&ldquo;'.$coupon_code.'&rdquo;';
+//    $coupon_code = strtoupper( $coupon_code );
+    if( $msg_code == 200 ){
+        $msg = $coupon_code.' promo code applied.';
+    }
+    return $msg; 
+}
+add_filter( 'woocommerce_coupon_message', 'filter_woocommerce_coupon_message', 10, 3 );
+
+add_filter( 'woocommerce_checkout_fields', 'fun_woocommerce_form_field' ,10 , 1);
+function fun_woocommerce_form_field( $fields ) {
+    $fields['billing']['billing_company']['label'] = 'Company or organization name';
+    return $fields;
+}
+
+function custom_registration_redirect( $redirect_to ) {
+    $previous_url = $_GET['redirect'];
+    $cart_page_url = wc_get_cart_url();
+    if( $previous_url == 'cart' ) {
+        $redirect_to = $cart_page_url;
+    } else if( $previous_url == 'checkout' ) {
+        $redirect_to = wc_get_checkout_url();
+    } else {
+        $redirect_to = esc_url( wc_get_account_endpoint_url( 'edit-account' ) );
+    }
+    return $redirect_to;
+}
+add_action('woocommerce_registration_redirect', 'custom_registration_redirect', 2);
+
+add_filter( 'lostpassword_url', 'wdm_lostpassword_url', 1000, 2 );
+function wdm_lostpassword_url( $lostpassword_url , $redirect ) {
+    $site_url_encoded   = '?site='.my_simple_crypt( get_permalink( wc_get_page_id( 'myaccount' ) ) );
+    $lostpassword_url .=$site_url_encoded;
+    return $lostpassword_url;
+}
+//coupon must be capitalized.
+remove_filter( 'woocommerce_coupon_code', 'wc_strtolower' );
+
+add_filter('woocommerce_save_account_details_required_fields', 'wc_save_account_details_required_fields' );
+function wc_save_account_details_required_fields( $required_fields ){
+    unset( $required_fields['account_display_name'] );
+    return $required_fields;
+}
+
+// Save the custom field 'favorite_color' 
+add_action( 'woocommerce_save_account_details', 'save_favorite_color_account_details', 12, 1 );
+function save_favorite_color_account_details( $user_id ) {
+    // For billing_company 
+    if( isset( $_POST['billing_company'] ) )
+        update_user_meta( $user_id, 'billing_company', sanitize_text_field( $_POST['billing_company'] ) );
+}
+
+add_filter('acf/validate_value/name=kerrybodine_sub_enterprise_disclaimer', 'acf_validate_kerrybodine_sub_enterprise_disclaimer', 10, 4);
+function acf_validate_kerrybodine_sub_enterprise_disclaimer( $valid, $value, $field, $input ){ 
+    if( !$valid ) {
+        return $valid;
+    }
+    if( empty($value[0]) ){
+        $valid = "Please acknowledge you understand the terms.";
+    }
+    return $valid;
+}
+add_action( 'wp_print_scripts', 'iconic_remove_password_strength', 10 );
+function iconic_remove_password_strength() {
+    wp_dequeue_script( 'wc-password-strength-meter' );
+}
+
+add_filter( 'woocommerce_cart_item_removed_title', 'removed_from_cart_title', 12, 2);
+function removed_from_cart_title( $message, $cart_item ) {
+    $product = wc_get_product( $cart_item['product_id'] );
+
+    if( $product )
+        $message = sprintf( __('%s has been'), $product->get_name() );
+
+    return $message;
+}
+add_filter( 'gettext', 'woocommerce_rename_coupon_field_on_cart', 10, 3 );
+function woocommerce_rename_coupon_field_on_cart( $translated_text, $text, $text_domain ) {
+    if ( is_admin() || 'woocommerce' !== $text_domain ) {
+        return $translated_text;
+    }
+    if ('Coupon has been removed.' === $text){
+        $translated_text = 'Promo code '.$coupon->code.'has been removed.';
+    }
+    return $translated_text;
+}
+
+
+remove_filter( 'password_change_email', 'filter_password_change_email', 10, 3 ); 
+function filter_password_change_email( $pass_change_email, $user, $userdata ) {
+    
+    $pass_change_email[ 'message' ] = '<html>
+            <head>
+                <title></title>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap" rel="stylesheet">
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+a {color: #02a94f !important;text-decoration: underline;  }
+</style>
+            </head>
+<body style="word-break: break-word; font-family: Open Sans, sans-serif; margin: 0;" >
+<div style="word-break: break-word;background: #fafbff; padding: 100px 50px;">
+<div style="max-width: 600px; margin: 0px auto;">
+<div style="margin-bottom: 15px;"><img src="https://kerrybodine.com/wp-content/uploads/2019/09/new-logo2.png" alt="kerrybodine logo" /></div>
+<table style="table-layout: fixed;width: 100%;word-break: break-word;border: 1px solid #ECEFFC; background-color: #ffffff; border-spacing: 0px; padding: 15px 32px;">
+<tbody>
+<tr>
+<td style="background-color: #ffffff; font-size: 16px; color: #58595b;">
+<p style="color: #58595b;">Hi there!</p>
+<p style="color: #58595b;">We received a request to reset the password for the Bodine &amp; Co. account associated with this email address.</p>
+<p><strong>'.$user["user_email"].'</strong></p>
+<p style="color: #58595b;">If this was a mistake, feel free to ignore this email.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</body>
+</html>';
+    
+    
+    // make filter magic happen here... 
+    return $pass_change_email; 
+}; 
+add_filter( 'password_change_email', 'filter_password_change_email', 10, 3 ); 
+
+// remove the default filter
+remove_filter( 'authenticate', 'wp_authenticate_username_password', 20, 3 );
+// add custom filter
+add_filter( 'authenticate', 'fb_authenticate_username_password', 20, 3 );
+function fb_authenticate_username_password( $user, $username, $password ) {
+
+if ( ! wp_check_password( $password, $user->user_pass, $user->ID ) ) {
+        return new WP_Error(
+                'incorrect_password',
+                sprintf(
+                        /* translators: %s: Email address. */
+                        __( '<strong>ERROR</strong>: The password you entered for the email address %s is incorrect.' ),
+                        '<strong>' . $username . '</strong>'
+                ) .
+                ' <a href="' . wp_lostpassword_url() . '">' .
+                __( 'Forgot your password?' ) .
+                '</a>'
+        );
+}
+
+    return $user;
+}
+function get_card_meta_data( $order_id ) {
+    $stripe_source_id = get_post_meta( $order_id, '_stripe_source_id', true );
+    global $wpdb;	
+    //$wpdb->show_errors( true );
+    $sql_wc_token_id = "SELECT token_id FROM wp_woocommerce_payment_tokens WHERE token = '$stripe_source_id'";
+    $wc_token_id_array = $wpdb->get_results( $sql_wc_token_id , ARRAY_A );
+    $wc_token_id = reset( $wc_token_id_array )['token_id'];
+
+    $sql_wc_token_meta = "SELECT * FROM wp_woocommerce_payment_tokenmeta WHERE payment_token_id = '$wc_token_id'";
+    $wc_token_meta = $wpdb->get_results( $sql_wc_token_meta, ARRAY_A );
+
+    foreach ( $wc_token_meta as $token_meta_array ) {
+        foreach ( $token_meta_array as $key => $value ) {
+
+            switch ( $value ) {
+                    case 'last4':
+                            $carddata['last4'] = $token_meta_array['meta_value'];
+                            break;
+                    case 'expiry_year':
+                            $carddata['expiry_year'] = $token_meta_array['meta_value'];
+                            break;
+                    case 'expiry_month':
+                            $carddata['expiry_month'] = $token_meta_array['meta_value'];
+                            break;
+                    case 'card_type':
+                            $carddata['card_type'] = $token_meta_array['meta_value'];
+                            break;
+            }
+        }		
+    }
+    return $carddata;
+}

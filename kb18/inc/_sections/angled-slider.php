@@ -51,6 +51,8 @@ function obj_do_angled_slide( $slide = null ) {
 	if ( ! empty( $slide_image ) ) {
             if(is_page_template( 'template-cxpa-landing.php' )){
                 $slide_image = $slide_image['url'];
+            } else if ( is_front_page() ) {
+                $slide_image = $slide_image['url'];
             } else {
 		$slide_image = $slide_image['sizes']['obj-angled-slide'];
 	}
@@ -67,7 +69,7 @@ function obj_do_angled_slide( $slide = null ) {
 							<div class="angled-slide__block__title"><?php echo esc_html( $block_title ); ?></div>
 						<?php endif; ?>
 						<?php if ( ! empty( $block_sub_title ) ) : ?>
-							<div class="angled-slide__block__sub-title"><?php echo esc_html( $block_sub_title ); ?></div>
+							<div class="angled-slide__block__sub-title"><?php echo  $block_sub_title ; ?></div>
 						<?php endif; ?>
 						<?php if ( ! empty( $block_image ) ) : ?>
 							<div class="angled-slide__block__image">

@@ -25,7 +25,7 @@ function obj_tabbed_cta_inside( $section_details = null ) {
 	if ( array_key_exists( 'sec_title', $section_details ) ) {
 		$sec_title = $section_details['sec_title'];
 	}
-
+        
 	if ( array_key_exists( 'bottom_image', $section_details ) ) {
 		$bottom_img = $section_details['bottom_image'];
 	}
@@ -60,8 +60,12 @@ function obj_tabbed_cta_inside( $section_details = null ) {
 
 function obj_do_tabs_left( $tabs = null ) {
 	if ( ! empty( $tabs ) ) {
+                $value_delivered = get_field( 'value_delivered_subtitle' );
 		echo "<div class='tabs-left lmb0'>";
-		echo "<div class='tabs-left__inner'>";
+		echo "<div class='tabs-left__inner test'>";
+                if(!empty( $value_delivered )){        
+                    echo "<h3>".$value_delivered."</h3>";
+                }
 		foreach ( $tabs as $key => $tab ) {
 			$title        = $tab['title'];
 			$id           = obj_id_from_string( $title, false );

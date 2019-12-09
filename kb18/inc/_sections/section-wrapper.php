@@ -1,7 +1,6 @@
 <?php
 
 function do_section_top( $section_meta = null ) {
-
 	$sec_id             = $section_meta['section_id'];
 	$sec_class          = $section_meta['section_class'];
 	$additional_classes = $section_meta['section_add_classes'];
@@ -9,7 +8,6 @@ function do_section_top( $section_meta = null ) {
 	$marg_class         = decide_section_margin_class( $section_meta );
 	$pad_class          = decide_section_padding_class( $section_meta );
 	$wrap               = $section_meta['section_wrap'];
-
 	echo "<section id='" . $sec_id . "' class='" . $sec_class . ' ' . $marg_class . ' ' . $pad_class . ' ' . $additional_classes . ' ' . $sec_color_class . "'>";
 	if ( array_key_exists( 'bg_shapes', $section_meta ) && is_array( $section_meta['bg_shapes'] ) ) {
 		obj_output_bg_shapes_array( $section_meta['bg_shapes'] );

@@ -142,6 +142,28 @@
                         "id": ""
                     },
                     "return_format": "array"
+                },
+                {
+                    "key": "field_5ba290868a2db",
+                    "label": "Block Button Type",
+                    "name": "block_button_type",
+                    "type": "button_group",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "link": "Link",
+                        "video_modal": "Video Modal"
+                    },
+                    "allow_null": 0,
+                    "default_value": "",
+                    "layout": "horizontal",
+                    "return_format": "value"
                 }
             ]
         }
@@ -161,7 +183,7 @@
     "label_placement": "top",
     "instruction_placement": "label",
     "hide_on_screen": "",
-    "active": 1,
+    "active": 0,
     "description": "",
-    "modified": 1575467060
+    "modified": 1537381957
 }
